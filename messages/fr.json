@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "title": "Ayoub HAMMOU | Portfolio Cybersécurité",
+    "description": "Portfolio d'Ayoub HAMMOU, étudiant et consultant en cybersécurité spécialisé en IAM, PAM, SOC, GRC et DevSecOps.",
+    "keywords": "cybersécurité, IAM, PAM, SOC, GRC, CyberArk, Keycloak, Wazuh, DevSecOps, ISO 27001"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "experience": "Expérience",
+    "education": "Formation",
+    "certifications": "Certifications",
+    "contact": "Contact",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "toggleTheme": "Changer de thème",
+    "language": "Langue",
+    "github": "Profil GitHub",
+    "linkedin": "Profil LinkedIn"
+  },
+  "hero": {
+    "badge": "Étudiant en cybersécurité",
+    "name": "Ayoub HAMMOU",
+    "subtitle": "Consultant cybersécurité (alternance) | IAM • PAM • SOC • GRC • DevSecOps",
+    "intro": "Passionné par la défense des systèmes, la gestion des identités et des accès, la supervision des menaces et la construction d'environnements sécurisés et conformes. J'aime transformer des concepts de sécurité complexes en solutions concrètes et opérationnelles.",
+    "viewProjects": "Voir mes projets",
+    "downloadCV": "Télécharger mon CV",
+    "scroll": "Défiler",
+    "consoleTitle": "ayoub@soc: ~",
+    "monitoring": "Supervision SOC",
+    "live": "En direct",
+    "secured": "Système sécurisé",
+    "threatLevel": "Niveau de menace",
+    "nominal": "Nominal"
+  },
+  "stats": {
+    "projects": "Projets",
+    "labHours": "Heures de lab",
+    "tools": "Outils & Technologies",
+    "certifications": "Certifications"
+  },
+  "about": {
+    "kicker": "Profil",
+    "title": "À propos de moi",
+    "p1": "Étudiant en cybersécurité focalisé sur la gestion des identités et des accès (IAM/PAM), les opérations de sécurité (SOC) et la gouvernance, le risque et la conformité (GRC). Je m'appuie sur une solide expérience de superviseur IT en environnement bancaire critique, où j'ai piloté des centaines d'alertes en temps réel et géré des incidents 24/7.",
+    "p2": "J'aime construire des labs, automatiser des workflows et analyser des données de sécurité pour renforcer les organisations. Je développe aujourd'hui une expertise transverse à travers des projets concrets en DevSecOps, Cloud Security, durcissement et pentest.",
+    "points": [
+      "Esprit analytique",
+      "Créateur de labs pratiques",
+      "Curieux et rigoureux",
+      "Engagé dans l'apprentissage continu"
+    ],
+    "identityTitle": "Identité cyber",
+    "available": "Disponible — alternance",
+    "availableDetail": "Septembre 2026 · Paris (Île-de-France)",
+    "languagesTitle": "Langues",
+    "languages": [
+      { "label": "Arabe", "level": "Natif" },
+      { "label": "Français", "level": "C1" },
+      { "label": "Anglais", "level": "B2" }
+    ]
+  },
+  "dashboard": {
+    "title": "Vue d'ensemble système",
+    "subtitle": "Tableau de bord illustratif d'un centre d'opérations de sécurité (SOC).",
+    "users": "Utilisateurs",
+    "alerts": "Alertes",
+    "assets": "Actifs",
+    "vsLastMonth": "vs mois dernier",
+    "topThreats": "Principales catégories de menaces",
+    "securityPosture": "Posture de sécurité",
+    "postureLabel": "Bon",
+    "threats": {
+      "initialAccess": "Accès initial",
+      "privEsc": "Élévation de privilèges",
+      "credAccess": "Accès aux identifiants",
+      "lateral": "Mouvement latéral",
+      "other": "Autre"
+    },
+    "disclaimer": "Élément de design — données illustratives, non opérationnelles."
+  },
+  "projects": {
+    "kicker": "Travaux",
+    "title": "Projets",
+    "subtitle": "Une sélection de projets académiques et professionnels, du pentest à la gouvernance en passant par le Cloud et le DevSecOps.",
+    "viewProject": "Voir le projet",
+    "caseStudy": "Étude de cas",
+    "comingSoon": "Bientôt disponible",
+    "viewAll": "Voir tous les dépôts GitHub",
+    "filterAll": "Tous"
+  },
+  "skills": {
+    "kicker": "Stack",
+    "title": "Compétences techniques",
+    "subtitle": "Outils et technologies que je mobilise sur mes projets et en environnement de production.",
+    "proficiencyTitle": "Niveau par domaine",
+    "technologiesTitle": "Technologies",
+    "categories": {
+      "iam": "IAM / PAM",
+      "soc": "SOC / SIEM",
+      "grc": "GRC / Conformité",
+      "cloud": "Sécurité Cloud",
+      "devsecops": "DevSecOps",
+      "scripting": "Scripting & Automatisation",
+      "systems": "Systèmes & Réseaux"
+    }
+  },
+  "certifications": {
+    "kicker": "Crédibilité",
+    "title": "Certifications",
+    "subtitle": "Certifications obtenues et en cours de préparation.",
+    "obtained": "Obtenue",
+    "inProgress": "En préparation"
+  },
+  "experience": {
+    "kicker": "Parcours",
+    "title": "Expérience professionnelle",
+    "subtitle": "De la supervision bancaire critique à la cybersécurité opérationnelle.",
+    "current": "Actuel",
+    "responsibilitiesTitle": "Responsabilités",
+    "technologiesTitle": "Technologies"
+  },
+  "education": {
+    "kicker": "Formation",
+    "title": "Parcours académique",
+    "subtitle": "Un cursus progressif vers la cybersécurité et l'intelligence artificielle.",
+    "focusTitle": "Spécialisation"
+  },
+  "contact": {
+    "kicker": "Contact",
+    "title": "Travaillons ensemble",
+    "subtitle": "Ouvert aux opportunités d'alternance, de stage et de collaboration.",
+    "intro": "Disponible en alternance dès septembre 2026 et ouvert aux stages SOC / IAM / DevSecOps. Basé à Paris (Île-de-France). N'hésitez pas à me contacter.",
+    "emailLabel": "Email",
+    "phoneLabel": "Téléphone",
+    "locationLabel": "Localisation",
+    "githubLabel": "GitHub",
+    "linkedinLabel": "LinkedIn",
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "email": "Email",
+      "emailPlaceholder": "vous@exemple.com",
+      "message": "Message",
+      "messagePlaceholder": "Votre message…",
+      "send": "Envoyer le message",
+      "sent": "Message envoyé ✓",
+      "note": "Ce formulaire est une démonstration d'interface (sans backend pour le moment)."
+    }
+  },
+  "footer": {
+    "rights": "© 2026 Ayoub HAMMOU. Tous droits réservés.",
+    "tagline": "Cybersécurité · IAM · SOC · GRC · DevSecOps",
+    "status": "Disponible pour alternance"
+  }
+}

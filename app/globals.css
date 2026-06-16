@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Semantic color tokens as space-separated RGB channels.
+ * Dark theme is the default (:root); `.light` on <html> overrides it.
+ */
+:root {
+  --background: 5 11 24; /* #050B18 */
+  --surface: 9 16 32; /* card base */
+  --surface-2: 14 23 42; /* #0E172A */
+  --border: 30 41 59; /* #1E293B */
+  --foreground: 229 231 235; /* #E5E7EB */
+  --muted: 148 163 184; /* #94A3B8 */
+  --primary: 14 165 233; /* #0EA5E9 */
+  --primary-deep: 2 132 199; /* #0284C7 */
+  --accent: 34 211 238; /* #22D3EE */
+  --success: 16 185 129; /* #10B981 */
+  --warning: 245 158 11; /* #F59E0B */
+  --danger: 239 68 68; /* #EF4444 */
+}
+
+:root.light {
+  --background: 241 245 249; /* #F1F5F9 */
+  --surface: 255 255 255;
+  --surface-2: 248 250 252;
+  --border: 226 232 240; /* #E2E8F0 */
+  --foreground: 15 23 42; /* #0F172A */
+  --muted: 71 85 105; /* #475569 */
+  --primary: 2 132 199; /* #0284C7 */
+  --primary-deep: 3 105 161;
+  --accent: 8 145 178; /* #0891B2 */
+  --success: 5 150 105;
+  --warning: 217 119 6;
+  --danger: 220 38 38;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.25);
+    color: rgb(var(--foreground));
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--border));
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--primary) / 0.6);
+  }
+}
+
+@layer components {
+  /* Glassmorphism card used across sections */
+  .glass-card {
+    @apply rounded-2xl border border-border bg-surface/70 backdrop-blur-sm;
+  }
+
+  .section-padding {
+    @apply mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28;
+  }
+
+  /* Subtle glowing text for accents */
+  .text-glow {
+    text-shadow: 0 0 24px rgb(var(--primary) / 0.35);
+  }
+
+  /* Animated background grid */
+  .cyber-grid {
+    background-image: linear-gradient(
+        rgb(var(--border) / 0.35) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgb(var(--border) / 0.35) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Rotating radar beam used in the hero visual */
+  .radar-sweep {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgb(var(--primary) / 0.28) 40deg,
+      transparent 65deg
+    );
+    animation: radar-spin 6s linear infinite;
+  }
+}
+
+@keyframes radar-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

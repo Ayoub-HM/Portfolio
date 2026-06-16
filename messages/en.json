@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "title": "Ayoub HAMMOU | Cybersecurity Portfolio",
+    "description": "Portfolio of Ayoub HAMMOU, cybersecurity student and consultant specialized in IAM, PAM, SOC, GRC and DevSecOps.",
+    "keywords": "cybersecurity, IAM, PAM, SOC, GRC, CyberArk, Keycloak, Wazuh, DevSecOps, ISO 27001"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "certifications": "Certifications",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "toggleTheme": "Toggle theme",
+    "language": "Language",
+    "github": "GitHub profile",
+    "linkedin": "LinkedIn profile"
+  },
+  "hero": {
+    "badge": "Cybersecurity Student",
+    "name": "Ayoub HAMMOU",
+    "subtitle": "Cybersecurity Consultant (apprenticeship) | IAM • PAM • SOC • GRC • DevSecOps",
+    "intro": "Passionate about defending systems, managing identities and access, monitoring threats, and building secure, compliant environments. I love turning complex security concepts into practical, real-world solutions.",
+    "viewProjects": "View Projects",
+    "downloadCV": "Download CV",
+    "scroll": "Scroll",
+    "consoleTitle": "ayoub@soc: ~",
+    "monitoring": "SOC Monitoring",
+    "live": "Live",
+    "secured": "System secured",
+    "threatLevel": "Threat level",
+    "nominal": "Nominal"
+  },
+  "stats": {
+    "projects": "Projects",
+    "labHours": "Lab Hours",
+    "tools": "Tools & Technologies",
+    "certifications": "Certifications"
+  },
+  "about": {
+    "kicker": "Profile",
+    "title": "About Me",
+    "p1": "Cybersecurity student focused on Identity & Access Management (IAM/PAM), Security Operations (SOC), and Governance, Risk & Compliance (GRC). I build on solid experience as an IT supervisor in a critical banking environment, where I handled hundreds of real-time alerts and managed incidents 24/7.",
+    "p2": "I enjoy building labs, automating workflows, and analyzing security data to strengthen organizations. I am now developing cross-domain expertise through hands-on projects in DevSecOps, Cloud Security, hardening, and pentesting.",
+    "points": [
+      "Strong analytical mindset",
+      "Hands-on lab builder",
+      "Detail-oriented and curious",
+      "Committed to continuous learning"
+    ],
+    "identityTitle": "Cyber identity",
+    "available": "Available — apprenticeship",
+    "availableDetail": "September 2026 · Paris (Île-de-France)",
+    "languagesTitle": "Languages",
+    "languages": [
+      { "label": "Arabic", "level": "Native" },
+      { "label": "French", "level": "C1" },
+      { "label": "English", "level": "B2" }
+    ]
+  },
+  "dashboard": {
+    "title": "System Overview",
+    "subtitle": "Illustrative dashboard of a Security Operations Center (SOC).",
+    "users": "Users",
+    "alerts": "Alerts",
+    "assets": "Assets",
+    "vsLastMonth": "vs last month",
+    "topThreats": "Top threat categories",
+    "securityPosture": "Security posture",
+    "postureLabel": "Good",
+    "threats": {
+      "initialAccess": "Initial Access",
+      "privEsc": "Privilege Escalation",
+      "credAccess": "Credential Access",
+      "lateral": "Lateral Movement",
+      "other": "Other"
+    },
+    "disclaimer": "Design element — illustrative, non-operational data."
+  },
+  "projects": {
+    "kicker": "Work",
+    "title": "Projects",
+    "subtitle": "A selection of academic and professional projects, from pentesting to governance, including Cloud and DevSecOps.",
+    "viewProject": "View Project",
+    "caseStudy": "Case Study",
+    "comingSoon": "Coming Soon",
+    "viewAll": "View all GitHub repositories",
+    "filterAll": "All"
+  },
+  "skills": {
+    "kicker": "Stack",
+    "title": "Technical Skills",
+    "subtitle": "Tools and technologies I use across my projects and in production environments.",
+    "proficiencyTitle": "Proficiency by area",
+    "technologiesTitle": "Technologies",
+    "categories": {
+      "iam": "IAM / PAM",
+      "soc": "SOC / SIEM",
+      "grc": "GRC / Compliance",
+      "cloud": "Cloud Security",
+      "devsecops": "DevSecOps",
+      "scripting": "Scripting & Automation",
+      "systems": "Systems & Networking"
+    }
+  },
+  "certifications": {
+    "kicker": "Credibility",
+    "title": "Certifications",
+    "subtitle": "Certifications earned and currently in preparation.",
+    "obtained": "Obtained",
+    "inProgress": "In progress"
+  },
+  "experience": {
+    "kicker": "Journey",
+    "title": "Work Experience",
+    "subtitle": "From critical banking supervision to operational cybersecurity.",
+    "current": "Current",
+    "responsibilitiesTitle": "Responsibilities",
+    "technologiesTitle": "Technologies"
+  },
+  "education": {
+    "kicker": "Education",
+    "title": "Academic Background",
+    "subtitle": "A progressive path toward cybersecurity and artificial intelligence.",
+    "focusTitle": "Specialization"
+  },
+  "contact": {
+    "kicker": "Contact",
+    "title": "Let's work together",
+    "subtitle": "Open to apprenticeship, internship, and collaboration opportunities.",
+    "intro": "Available for an apprenticeship from September 2026 and open to SOC / IAM / DevSecOps internships. Based in Paris (Île-de-France). Feel free to reach out.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "locationLabel": "Location",
+    "githubLabel": "GitHub",
+    "linkedinLabel": "LinkedIn",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "message": "Message",
+      "messagePlaceholder": "Your message…",
+      "send": "Send Message",
+      "sent": "Message sent ✓",
+      "note": "This form is a UI demonstration (no backend for now)."
+    }
+  },
+  "footer": {
+    "rights": "© 2026 Ayoub HAMMOU. All rights reserved.",
+    "tagline": "Cybersecurity · IAM · SOC · GRC · DevSecOps",
+    "status": "Available for apprenticeship"
+  }
+}
