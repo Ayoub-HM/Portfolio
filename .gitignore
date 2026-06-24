@@ -30,3 +30,6 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# local editor / preview tooling
+.claude/

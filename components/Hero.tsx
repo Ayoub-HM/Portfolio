@@ -95,13 +95,20 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: SOC control-center visual */}
+        {/* Right: portrait + SOC control-center visual */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <HeroVisual />
+          <div className="flex flex-col items-center gap-4">
+            <img
+              src="/images/portrait.jpg"
+              alt={m.hero.name}
+              className="h-40 w-40 rounded-full object-cover ring-2 ring-primary shadow-sm"
+            />
+            <HeroVisual />
+          </div>
         </motion.div>
       </div>
     </section>

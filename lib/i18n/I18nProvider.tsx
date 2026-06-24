@@ -41,6 +41,16 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = next;
   }, []);
 
+  // Keep the document title & description in sync with the active language.
+  useEffect(() => {
+    const meta = dictionaries[locale].meta;
+    document.title = meta.title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", meta.description);
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   const toggleLocale = useCallback(() => {
     setLocale(locale === "fr" ? "en" : "fr");
   }, [locale, setLocale]);
