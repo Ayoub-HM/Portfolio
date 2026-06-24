@@ -95,18 +95,28 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: portrait + SOC control-center visual */}
+        {/* Right: decorative portrait (top-right) + SOC control-center visual */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="flex flex-col items-center gap-4">
-            <img
-              src="/images/portrait.jpg"
-              alt={m.hero.name}
-              className="h-40 w-40 rounded-full object-cover ring-2 ring-primary shadow-sm"
-            />
+          <div className="relative">
+            {/* Decorative ring + portrait — positioned to overlap the hero area */}
+            <div className="pointer-events-none absolute -right-6 -top-8 hidden sm:block">
+              <div className="relative">
+                <div className="rounded-full bg-gradient-to-br from-primary/10 to-transparent p-1 shadow-lg">
+                  <div className="rounded-full w-44 h-44 bg-surface-2/80 ring-2 ring-primary/40 flex items-center justify-center">
+                    <img
+                      src="/images/portrait.jpg"
+                      alt={m.hero.name}
+                      className="w-36 h-36 rounded-full object-cover shadow-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <HeroVisual />
           </div>
         </motion.div>
