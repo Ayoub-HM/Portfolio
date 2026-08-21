@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Github, Linkedin, Menu, ShieldCheck, X } from "lucide-react";
+import { Github, Linkedin, Menu, ShieldCheck, X, ZoomIn } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
+import { ProfileModal } from "./ProfileModal";
 
 type NavKey =
   | "home"
@@ -29,10 +30,11 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("hero");
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
-  // Shadow/blur once the page is scrolled.
+  // Shadow/blur and avatar swap once the page is scrolled.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 50);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -60,27 +62,67 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled
-          ? "border-b border-border bg-background/80 backdrop-blur-md"
-          : "border-b border-transparent"
-      }`}
+      style={{ position: "sticky", top: 0, zIndex: 50 }}
+      className="w-full border-b border-border/80 bg-background/95 backdrop-blur-md shadow-md shadow-black/25"
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         {/* Brand */}
-        <a href="#hero" className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-lg border border-primary/30 bg-primary/10 text-primary shadow-glow">
-            <ShieldCheck className="h-5 w-5" />
-          </span>
-          <span className="flex flex-col leading-none">
-            <span className="font-mono text-sm font-bold tracking-wider text-foreground">
-              {profile.initials}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <button
+            type="button"
+            onClick={(e) => {
+              if (scrolled) {
+                e.preventDefault();
+                setIsPhotoModalOpen(true);
+              }
+            }}
+            aria-label={scrolled ? "Agrandir la photo de profil" : profile.name}
+            className={`relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-primary/40 bg-surface-2 shadow-sm transition-all duration-300 ${
+              scrolled
+                ? "cursor-pointer group hover:ring-2 hover:ring-primary hover:scale-105"
+                : "cursor-default"
+            }`}
+            title={scrolled ? "Cliquer pour agrandir la photo" : profile.name}
+          >
+            {/* Logo / Shield when at top */}
+            <span
+              className={`absolute inset-0 grid place-items-center bg-primary/10 text-primary transition-all duration-300 ${
+                scrolled
+                  ? "scale-0 opacity-0 -rotate-90 pointer-events-none"
+                  : "scale-100 opacity-100 rotate-0"
+              }`}
+            >
+              <ShieldCheck className="h-5 w-5" />
             </span>
-            <span className="hidden text-[0.65rem] uppercase tracking-widest text-muted sm:block">
+
+            {/* Profile Photo when scrolled */}
+            <img
+              src="/images/portrait.jpg"
+              alt={profile.name}
+              className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-300 ${
+                scrolled
+                  ? "scale-100 opacity-100 rotate-0"
+                  : "scale-0 opacity-0 rotate-90 pointer-events-none"
+              }`}
+            />
+
+            {/* Hover overlay icon when scrolled */}
+            {scrolled && (
+              <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center backdrop-blur-[0.5px]">
+                <ZoomIn className="h-4 w-4 text-white drop-shadow" />
+              </div>
+            )}
+          </button>
+
+          <a href="#hero" className="flex flex-col justify-center group">
+            <span className="font-mono text-sm font-bold tracking-wider text-foreground transition-colors group-hover:text-primary leading-tight">
               {profile.name}
             </span>
-          </span>
-        </a>
+            <span className="mt-0.5 hidden text-[0.65rem] uppercase tracking-widest text-muted sm:block leading-tight">
+              {m.hero.badge}
+            </span>
+          </a>
+        </div>
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-7 lg:flex">
@@ -178,6 +220,12 @@ export function Navbar() {
           </ul>
         </div>
       ) : null}
+
+      {/* Centered Profile Modal */}
+      <ProfileModal
+        isOpen={isPhotoModalOpen}
+        onClose={() => setIsPhotoModalOpen(false)}
+      />
     </header>
   );
 }

@@ -1,18 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Lock } from "lucide-react";
+import { ArrowRight, Download, Lock, ZoomIn } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
 import { HeroVisual } from "./HeroVisual";
+import { ProfileModal } from "./ProfileModal";
 
 export function Hero() {
   const { m } = useI18n();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section
       id="hero"
-      className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-36"
+      className="relative overflow-hidden pt-10 sm:pt-14 lg:pt-16"
     >
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -22,32 +25,68 @@ export function Hero() {
       </div>
 
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:pb-24">
-        {/* Left: copy */}
+        {/* Left: copy + portrait */}
         <div>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 font-mono text-xs text-success"
-          >
-            <span className="h-2 w-2 animate-pulse-ring rounded-full bg-success" />
-            {m.hero.badge}
-          </motion.span>
+          {/* Header with Photo on the left + Name & Badge below name */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+            {/* Clickable Profile Photo */}
+            <motion.button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="group relative shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full text-left"
+              title="Cliquer pour agrandir la photo"
+            >
+              {/* Glowing cyber aura */}
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-primary via-accent to-primary/40 opacity-70 blur-md transition duration-500 group-hover:opacity-100 group-hover:scale-105" />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="mt-5 bg-gradient-to-b from-foreground to-muted bg-clip-text text-5xl font-extrabold tracking-tight text-transparent sm:text-6xl lg:text-7xl"
-          >
-            {m.hero.name}
-          </motion.h1>
+              {/* Outer cyber frame */}
+              <div className="relative rounded-full p-1 bg-surface border border-primary/40 shadow-xl backdrop-blur-md">
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden ring-2 ring-primary/40 bg-surface-2">
+                  <img
+                    src="/images/portrait.jpg"
+                    alt={m.hero.name}
+                    className="w-full h-full object-cover object-top transition-all duration-300 group-hover:scale-110 group-hover:brightness-105"
+                  />
+                  {/* Zoom overlay on hover */}
+                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[1px]">
+                    <ZoomIn className="h-6 w-6 text-white drop-shadow-md" />
+                  </div>
+                </div>
+              </div>
+            </motion.button>
+
+            {/* Name + Étudiant en cybersécurité under Name */}
+            <div className="flex-1 min-w-0">
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-gradient-to-b from-foreground to-muted bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl lg:text-6xl"
+              >
+                {m.hero.name}
+              </motion.h1>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.08 }}
+                className="mt-2.5"
+              >
+                <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 font-mono text-xs text-primary sm:text-sm">
+                  {m.hero.badge}
+                </span>
+              </motion.div>
+            </div>
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-4 font-mono text-base text-primary sm:text-lg"
+            className="mt-5 font-mono text-base text-primary sm:text-lg"
           >
             {m.hero.subtitle}
           </motion.p>
@@ -56,7 +95,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-muted"
+            className="mt-5 max-w-xl text-base leading-relaxed text-muted"
           >
             {m.hero.intro}
           </motion.p>
@@ -95,32 +134,21 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: decorative portrait (top-right) + SOC control-center visual */}
+        {/* Right: SOC control-center visual */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="relative">
-            {/* Decorative ring + portrait — positioned to overlap the hero area */}
-            <div className="pointer-events-none absolute -right-6 -top-8 hidden sm:block">
-              <div className="relative">
-                <div className="rounded-full bg-gradient-to-br from-primary/10 to-transparent p-1 shadow-lg">
-                  <div className="rounded-full w-44 h-44 bg-surface-2/80 ring-2 ring-primary/40 flex items-center justify-center">
-                    <img
-                      src="/images/portrait.jpg"
-                      alt={m.hero.name}
-                      className="w-36 h-36 rounded-full object-cover shadow-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <HeroVisual />
-          </div>
+          <HeroVisual />
         </motion.div>
       </div>
+
+      {/* Centered Modal on Click */}
+      <ProfileModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }

@@ -13,6 +13,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/ayoub-hammou/",
   // Place your CV PDF in /public/cv/ to make the "Download CV" button work.
   cvPath: "/cv/Ayoub-HAMMOU-CV.pdf",
+  avatar: "/images/portrait.jpg",
 } as const;
 
 /**
