@@ -10,7 +10,7 @@ import { ProfileModal } from "./ProfileModal";
 
 type NavKey =
   | "home"
-  | "about"
+  | "experience"
   | "projects"
   | "skills"
   | "certifications"
@@ -18,7 +18,7 @@ type NavKey =
 
 const NAV_LINKS: { key: NavKey; href: string }[] = [
   { key: "home", href: "#hero" },
-  { key: "about", href: "#about" },
+  { key: "experience", href: "#experience" },
   { key: "projects", href: "#projects" },
   { key: "skills", href: "#skills" },
   { key: "certifications", href: "#certifications" },

@@ -1,13 +1,153 @@
 "use client";
 
-import { Briefcase, MapPin } from "lucide-react";
+import { useState } from "react";
+import { Briefcase, GraduationCap, MapPin } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { experiences } from "@/data/experience";
+import { education } from "@/data/education";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
 
+type FilterType = "all" | "experience" | "education";
+
+export type TimelineItem =
+  | {
+      type: "experience";
+      id: string;
+      role: { fr: string; en: string };
+      company: string;
+      location: { fr: string; en: string };
+      period: { fr: string; en: string };
+      current?: boolean;
+      description: { fr: string; en: string };
+      responsibilities: { fr: string[]; en: string[] };
+      technologies: string[];
+      order: number;
+    }
+  | {
+      type: "education";
+      id: string;
+      degree: { fr: string; en: string };
+      school: string;
+      location?: { fr: string; en: string };
+      period: { fr: string; en: string };
+      current?: boolean;
+      focus: { fr: string; en: string };
+      highlights?: { fr: string[]; en: string[] };
+      technologies?: string[];
+      order: number;
+    };
+
+// Map and combine experiences & education into a unified chronological timeline
+const timelineItems: TimelineItem[] = [
+  // 1. EFREI Paris - Master of Science Cybersécurité & IA (2025 – 2027)
+  {
+    type: "education",
+    id: education[0].id,
+    degree: education[0].degree,
+    school: education[0].school,
+    location: education[0].location,
+    period: education[0].period,
+    current: education[0].current,
+    focus: education[0].focus,
+    highlights: education[0].highlights,
+    technologies: education[0].technologies,
+    order: 1,
+  },
+  // 2. Stage Cybersup (04/2026 – 06/2026)
+  {
+    type: "experience",
+    id: experiences[0].id,
+    role: experiences[0].role,
+    company: experiences[0].company,
+    location: experiences[0].location,
+    period: experiences[0].period,
+    current: experiences[0].current,
+    description: experiences[0].description,
+    responsibilities: experiences[0].responsibilities,
+    technologies: experiences[0].technologies,
+    order: 2,
+  },
+  // 3. AttijariwafaBank - CDI Administrateur Systèmes, Réseaux & Sécurité (04/2024 – 08/2025)
+  {
+    type: "experience",
+    id: experiences[1].id,
+    role: experiences[1].role,
+    company: experiences[1].company,
+    location: experiences[1].location,
+    period: experiences[1].period,
+    current: experiences[1].current,
+    description: experiences[1].description,
+    responsibilities: experiences[1].responsibilities,
+    technologies: experiences[1].technologies,
+    order: 3,
+  },
+  // 4. FST - Master Systèmes, Réseaux & Sécurité (2022 – 2023)
+  {
+    type: "education",
+    id: education[1].id,
+    degree: education[1].degree,
+    school: education[1].school,
+    location: education[1].location,
+    period: education[1].period,
+    current: education[1].current,
+    focus: education[1].focus,
+    highlights: education[1].highlights,
+    technologies: education[1].technologies,
+    order: 4,
+  },
+  // 5. OGER International - Stage Technicien IT (01/2021 – 04/2021)
+  {
+    type: "experience",
+    id: experiences[2].id,
+    role: experiences[2].role,
+    company: experiences[2].company,
+    location: experiences[2].location,
+    period: experiences[2].period,
+    current: experiences[2].current,
+    description: experiences[2].description,
+    responsibilities: experiences[2].responsibilities,
+    technologies: experiences[2].technologies,
+    order: 5,
+  },
+  // 6. FST - Licence Transmission & Télécommunications (2019 – 2020)
+  {
+    type: "education",
+    id: education[2].id,
+    degree: education[2].degree,
+    school: education[2].school,
+    location: education[2].location,
+    period: education[2].period,
+    current: education[2].current,
+    focus: education[2].focus,
+    highlights: education[2].highlights,
+    technologies: education[2].technologies,
+    order: 6,
+  },
+  // 7. EST - DUT Génie Informatique (2017 – 2019)
+  {
+    type: "education",
+    id: education[3].id,
+    degree: education[3].degree,
+    school: education[3].school,
+    location: education[3].location,
+    period: education[3].period,
+    current: education[3].current,
+    focus: education[3].focus,
+    highlights: education[3].highlights,
+    technologies: education[3].technologies,
+    order: 7,
+  },
+];
+
 export function Experience() {
   const { locale, m } = useI18n();
+  const [filter, setFilter] = useState<FilterType>("all");
+
+  const filteredItems = timelineItems.filter((item) => {
+    if (filter === "all") return true;
+    return item.type === filter;
+  });
 
   return (
     <section id="experience" className="section-padding">
@@ -17,75 +157,202 @@ export function Experience() {
         subtitle={m.experience.subtitle}
       />
 
-      <div className="relative ml-3 border-l border-border pl-8">
-        {experiences.map((exp, i) => (
-          <Reveal key={exp.id} delay={(i % 4) * 0.05}>
-            <div className="relative mb-10 last:mb-0">
-              {/* Timeline node */}
-              <span className="absolute -left-[42px] top-1.5 grid h-5 w-5 place-items-center rounded-full border-2 border-primary bg-background">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              </span>
+      {/* Filter Tabs */}
+      <div className="mb-10 flex flex-wrap items-center justify-center gap-2">
+        <button
+          type="button"
+          onClick={() => setFilter("all")}
+          className={`rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all cursor-pointer ${
+            filter === "all"
+              ? "bg-primary text-white shadow-glow"
+              : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
+          }`}
+        >
+          {m.experience.filterAll} ({timelineItems.length})
+        </button>
+        <button
+          type="button"
+          onClick={() => setFilter("experience")}
+          className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all cursor-pointer ${
+            filter === "experience"
+              ? "bg-primary text-white shadow-glow"
+              : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
+          }`}
+        >
+          <Briefcase className="h-3.5 w-3.5" />
+          {m.experience.filterExp} ({experiences.length})
+        </button>
+        <button
+          type="button"
+          onClick={() => setFilter("education")}
+          className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all cursor-pointer ${
+            filter === "education"
+              ? "bg-primary text-white shadow-glow"
+              : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
+          }`}
+        >
+          <GraduationCap className="h-3.5 w-3.5" />
+          {m.experience.filterEdu} ({education.length})
+        </button>
+      </div>
 
-              <div className="glass-card p-5">
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <div>
-                    <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
-                      <Briefcase className="h-4 w-4 text-primary" />
-                      {exp.role[locale]}
-                    </h3>
-                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-                      <span className="font-medium text-primary">
-                        {exp.company}
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {exp.location[locale]}
-                      </span>
-                    </div>
+      {/* Timeline Layout with Dates on the Left side of Circles */}
+      <div className="relative">
+        <div className="space-y-8 sm:space-y-10">
+          {filteredItems.map((item, i) => (
+            <Reveal key={item.id} delay={(i % 4) * 0.05}>
+              <div className="relative grid grid-cols-[36px_1fr] md:grid-cols-[170px_40px_1fr] items-start gap-3 sm:gap-5">
+                {/* 1. Left Column: Date & Period (visible on desktop md:flex) */}
+                <div className="hidden md:flex flex-col items-end pt-2 pr-2 text-right">
+                  <span className="font-mono text-xs lg:text-sm font-bold text-foreground">
+                    {item.period[locale]}
+                  </span>
+                  {item.current && (
+                    <span className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 font-mono text-[0.65rem] font-bold text-success uppercase">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
+                      {m.experience.current}
+                    </span>
+                  )}
+                </div>
+
+                {/* 2. Center Column: Timeline Node Circle + Perfectly Centered Line */}
+                <div className="relative flex justify-center h-full pt-1">
+                  {/* Vertical connector line passing directly through the middle of the circle */}
+                  {i !== filteredItems.length - 1 && (
+                    <div className="absolute top-4 -bottom-10 sm:-bottom-12 left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary/80 via-primary/30 to-border/40 z-0" />
+                  )}
+
+                  <div className="relative z-10 grid h-9 w-9 place-items-center rounded-full border-2 border-primary bg-[#090d16] text-primary shadow-[0_0_14px_rgba(14,165,233,0.35)] transition-transform hover:scale-110">
+                    {item.type === "experience" ? (
+                      <Briefcase className="h-4 w-4 text-sky-400" />
+                    ) : (
+                      <GraduationCap className="h-4 w-4 text-cyan-300" />
+                    )}
                   </div>
-                  <div className="flex items-center gap-2">
-                    {exp.current ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-success/30 bg-success/10 px-2.5 py-0.5 font-mono text-[0.65rem] uppercase text-success">
-                        <span className="h-1.5 w-1.5 animate-pulse-ring rounded-full bg-success" />
+                </div>
+
+                {/* 3. Right Column: Card Content */}
+                <div className="glass-card p-5 sm:p-6 transition-all hover:border-primary/40 group">
+                  {/* Mobile Date Header (visible on screens < md) */}
+                  <div className="flex md:hidden items-center justify-between gap-2 mb-3 pb-2.5 border-b border-border/60">
+                    <span className="font-mono text-xs font-bold text-foreground">
+                      {item.period[locale]}
+                    </span>
+                    {item.current && (
+                      <span className="inline-flex items-center gap-1 rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 font-mono text-[0.65rem] font-bold text-success uppercase">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
                         {m.experience.current}
                       </span>
-                    ) : null}
-                    <span className="font-mono text-xs text-muted">
-                      {exp.period[locale]}
-                    </span>
+                    )}
                   </div>
-                </div>
 
-                <p className="mt-3 text-sm text-muted">
-                  {exp.description[locale]}
-                </p>
+                  {/* Header: Badge + Role/Degree + Company/School */}
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <div>
+                      {/* Type Badge */}
+                      <span
+                        className={`inline-flex items-center gap-1 rounded-md px-2.5 py-0.5 font-mono text-[0.68rem] font-bold ${
+                          item.type === "experience"
+                            ? "border border-sky-500/30 bg-sky-500/10 text-sky-400"
+                            : "border border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
+                        }`}
+                      >
+                        {item.type === "experience" ? (
+                          <Briefcase className="h-3 w-3" />
+                        ) : (
+                          <GraduationCap className="h-3 w-3" />
+                        )}
+                        {item.type === "experience"
+                          ? m.experience.badgeExp
+                          : m.experience.badgeEdu}
+                      </span>
 
-                <ul className="mt-3 space-y-1.5">
-                  {exp.responsibilities[locale].map((item, idx) => (
-                    <li
-                      key={idx}
-                      className="flex gap-2 text-sm leading-relaxed text-muted"
-                    >
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                      {/* Title */}
+                      <h3 className="mt-2 text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                        {item.type === "experience"
+                          ? item.role[locale]
+                          : item.degree[locale]}
+                      </h3>
 
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {exp.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md border border-border bg-surface-2 px-2 py-0.5 font-mono text-[0.7rem] text-muted"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                      {/* Company / School + Location */}
+                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+                        <span className="font-semibold text-primary">
+                          {item.type === "experience"
+                            ? item.company
+                            : item.school}
+                        </span>
+                        {item.location && (
+                          <span className="inline-flex items-center gap-1 text-muted">
+                            <MapPin className="h-3.5 w-3.5" />
+                            {item.location[locale]}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Description for experiences */}
+                  {item.type === "experience" && item.description && (
+                    <p className="mt-3.5 text-sm text-muted leading-relaxed">
+                      {item.description[locale]}
+                    </p>
+                  )}
+
+                  {/* Focus for education */}
+                  {item.type === "education" && item.focus && (
+                    <p className="mt-3.5 text-sm text-muted leading-relaxed">
+                      {item.focus[locale]}
+                    </p>
+                  )}
+
+                  {/* Responsibilities list for experiences (Action Verbs) */}
+                  {item.type === "experience" && item.responsibilities && (
+                    <ul className="mt-3.5 space-y-1.5">
+                      {item.responsibilities[locale].map((resp, idx) => (
+                        <li
+                          key={idx}
+                          className="flex gap-2.5 text-sm leading-relaxed text-slate-300"
+                        >
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                          <span>{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Highlights list for education (Action Verbs) */}
+                  {item.type === "education" && item.highlights && (
+                    <ul className="mt-3.5 space-y-1.5">
+                      {item.highlights[locale].map((hl, idx) => (
+                        <li
+                          key={idx}
+                          className="flex gap-2.5 text-sm leading-relaxed text-slate-300"
+                        >
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                          <span>{hl}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Technologies tags */}
+                  {item.technologies && item.technologies.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-1.5 pt-1">
+                      {item.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-md border border-border bg-surface-2 px-2.5 py-0.5 font-mono text-[0.7rem] text-muted"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

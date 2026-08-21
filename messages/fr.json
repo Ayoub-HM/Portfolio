@@ -6,11 +6,10 @@
   },
   "nav": {
     "home": "Accueil",
+    "experience": "Parcours",
     "about": "À propos",
     "projects": "Projets",
     "skills": "Compétences",
-    "experience": "Expérience",
-    "education": "Formation",
     "certifications": "Certifications",
     "contact": "Contact",
     "openMenu": "Ouvrir le menu",
@@ -117,10 +116,16 @@
   },
   "experience": {
     "kicker": "Parcours",
-    "title": "Expérience professionnelle",
-    "subtitle": "De la supervision bancaire critique à la cybersécurité opérationnelle.",
+    "title": "Parcours & Expériences",
+    "subtitle": "De la supervision bancaire critique et de l'ingénierie réseaux à la cybersécurité & IA.",
     "current": "Actuel",
+    "filterAll": "Tout",
+    "filterExp": "Expériences pro",
+    "filterEdu": "Formations",
+    "badgeExp": "Expérience pro",
+    "badgeEdu": "Formation",
     "responsibilitiesTitle": "Responsabilités",
+    "focusTitle": "Spécialisation & Réalisations",
     "technologiesTitle": "Technologies"
   },
   "education": {

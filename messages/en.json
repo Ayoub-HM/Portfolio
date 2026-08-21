@@ -6,11 +6,10 @@
   },
   "nav": {
     "home": "Home",
+    "experience": "Timeline",
     "about": "About",
     "projects": "Projects",
     "skills": "Skills",
-    "experience": "Experience",
-    "education": "Education",
     "certifications": "Certifications",
     "contact": "Contact",
     "openMenu": "Open menu",
@@ -116,11 +115,17 @@
     "inProgress": "In progress"
   },
   "experience": {
-    "kicker": "Journey",
-    "title": "Work Experience",
-    "subtitle": "From critical banking supervision to operational cybersecurity.",
+    "kicker": "Timeline",
+    "title": "Career & Academic Path",
+    "subtitle": "From critical banking supervision and network engineering to cybersecurity & AI.",
     "current": "Current",
+    "filterAll": "All",
+    "filterExp": "Work Experience",
+    "filterEdu": "Education",
+    "badgeExp": "Work Experience",
+    "badgeEdu": "Education",
     "responsibilitiesTitle": "Responsibilities",
+    "focusTitle": "Specialization & Highlights",
     "technologiesTitle": "Technologies"
   },
   "education": {
