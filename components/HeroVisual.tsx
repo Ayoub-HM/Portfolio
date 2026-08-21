@@ -125,14 +125,20 @@ export function HeroVisual() {
       case "certs":
       case "certifications":
         responseNode = (
-          <div className="space-y-1 text-xs text-slate-200 font-mono">
+          <div className="space-y-1.5 text-xs text-slate-200 font-mono">
             <p className="text-emerald-400 font-semibold flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5" />
-              {locale === "fr" ? "Certifications validées & en cours :" : "Certifications & In Progress:"}
+              {locale === "fr" ? "Certifications obtenues & en cours :" : "Certifications & In Progress:"}
             </p>
-            <p className="text-[0.72rem] text-slate-300">• CompTIA Security+ (En cours / In Progress)</p>
-            <p className="text-[0.72rem] text-slate-300">• CyberArk Certified Trustee</p>
-            <p className="text-[0.72rem] text-slate-300">• ISO/IEC 27001 Foundation / Lead Implementer</p>
+            <p className="text-[0.72rem] text-slate-300">
+              • <a href="https://www.credly.com/badges/08c8f11f-11ad-4d40-8324-c5e29b29ff19/linked_in_profile" target="_blank" rel="noopener noreferrer" className="text-sky-400 underline hover:text-sky-300">ISC2 Certified in Cybersecurity (CC)</a> [Obtenu ✓]
+            </p>
+            <p className="text-[0.72rem] text-slate-300">
+              • <a href="https://certification-portal.sandbp.net/certificate-verification-page/13ECC7BEC-7349543A46-127324D17/" target="_blank" rel="noopener noreferrer" className="text-sky-400 underline hover:text-sky-300">ISO/IEC 27001 Lead Implementer (SandBP)</a> [Obtenu ✓]
+            </p>
+            <p className="text-[0.72rem] text-slate-300">
+              • <span className="text-amber-400">CompTIA CySA+</span> (En préparation ⚡)
+            </p>
           </div>
         );
         break;
@@ -224,21 +230,35 @@ export function HeroVisual() {
             <span className="font-semibold text-slate-300">ayoub@soc-defense: ~ (zsh)</span>
           </div>
 
-          {/* Right: Colored dots with Maximize action on Green Dot */}
+          {/* Right: Colored dots with Maximize action on Green Dot in middle, Red on right */}
           <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-rose-500/80 shadow-sm" title="Fermer" />
-            <span className="h-3 w-3 rounded-full bg-amber-500/80 shadow-sm" title="Réduire" />
+            <span className="h-3.5 w-3.5 rounded-full bg-amber-500/80 shadow-sm" title="Réduire" />
             
-            {/* Green Circle: Maximize / Enlarge button */}
+            {/* Green Circle: Maximize / Enlarge button in the middle */}
             <button
               type="button"
               onClick={() => setIsExpanded(true)}
-              className="group relative h-3.5 w-3.5 rounded-full bg-emerald-500/90 hover:bg-emerald-400 hover:scale-125 transition-all cursor-pointer shadow-sm flex items-center justify-center focus:outline-none"
+              className="group grid h-3.5 w-3.5 place-items-center rounded-full bg-emerald-500/90 hover:bg-emerald-400 hover:scale-125 transition-all cursor-pointer shadow-sm focus:outline-none"
               title="Agrandir le terminal en plein écran"
               aria-label="Agrandir le terminal"
             >
-              <Maximize2 className="h-2 w-2 text-slate-950 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <svg
+                className="h-2 w-2 text-slate-950 opacity-0 group-hover:opacity-100 transition-opacity"
+                viewBox="0 0 10 10"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="1 4 1 1 4 1" />
+                <line x1="1" y1="1" x2="4" y2="4" />
+                <polyline points="9 6 9 9 6 9" />
+                <line x1="9" y1="9" x2="6" y2="6" />
+              </svg>
             </button>
+
+            <span className="h-3.5 w-3.5 rounded-full bg-rose-500/80 shadow-sm" title="Fermer" />
           </div>
         </div>
 
@@ -327,39 +347,59 @@ export function HeroVisual() {
                       <span className="font-bold">ayoub@soc-defense: ~ [SESSION AGRANDIE PLEIN ÉCRAN]</span>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
+                      {/* Yellow button (left) */}
                       <button
                         type="button"
                         onClick={() => setIsExpanded(false)}
-                        className="h-3.5 w-3.5 rounded-full bg-rose-500/90 hover:bg-rose-400 transition-all cursor-pointer shadow-sm flex items-center justify-center"
-                        title="Fermer la vue agrandie"
-                        aria-label="Fermer"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setIsExpanded(false)}
-                        className="h-3.5 w-3.5 rounded-full bg-amber-500/90 hover:bg-amber-400 transition-all cursor-pointer shadow-sm"
+                        className="grid h-3.5 w-3.5 place-items-center rounded-full bg-amber-500/90 hover:bg-amber-400 hover:scale-110 transition-all cursor-pointer shadow-sm focus:outline-none"
                         title="Réduire"
                         aria-label="Réduire"
                       />
+
+                      {/* Green button (middle) with 100% symmetric inward arrows */}
                       <button
                         type="button"
                         onClick={() => setIsExpanded(false)}
-                        className="h-3.5 w-3.5 rounded-full bg-emerald-500/90 hover:bg-emerald-400 transition-all cursor-pointer shadow-sm flex items-center justify-center"
+                        className="grid h-3.5 w-3.5 place-items-center rounded-full bg-emerald-500/90 hover:bg-emerald-400 hover:scale-110 transition-all cursor-pointer shadow-sm focus:outline-none"
                         title="Quitter le plein écran"
                         aria-label="Quitter le plein écran"
                       >
-                        <Minimize2 className="h-2 w-2 text-slate-950" />
+                        <svg
+                          className="h-2 w-2 text-slate-950"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="4 1 4 4 1 4" />
+                          <line x1="1" y1="1" x2="4" y2="4" />
+                          <polyline points="6 9 6 6 9 6" />
+                          <line x1="9" y1="9" x2="6" y2="6" />
+                        </svg>
                       </button>
 
-                      {/* Close button icon */}
+                      {/* Red button with X inside on the right */}
                       <button
                         type="button"
                         onClick={() => setIsExpanded(false)}
-                        className="ml-2 rounded-full bg-slate-800/80 p-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer border border-slate-700"
-                        aria-label="Fermer"
+                        className="grid h-3.5 w-3.5 place-items-center rounded-full bg-rose-500 hover:bg-rose-400 hover:scale-110 transition-all cursor-pointer shadow-sm focus:outline-none"
+                        title="Réduire / Fermer la fenêtre"
+                        aria-label="Fermer la fenêtre agrandie"
                       >
-                        <X className="h-4 w-4" />
+                        <svg
+                          className="h-2 w-2 text-slate-950"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        >
+                          <line x1="2" y1="2" x2="8" y2="8" />
+                          <line x1="8" y1="2" x2="2" y2="8" />
+                        </svg>
                       </button>
                     </div>
                   </div>

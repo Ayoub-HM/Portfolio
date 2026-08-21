@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Github, Linkedin, Menu, ShieldCheck, X, ZoomIn } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
@@ -84,34 +85,53 @@ export function Navbar() {
             }`}
             title={scrolled ? "Cliquer pour agrandir la photo" : profile.name}
           >
-            {/* Logo / Shield when at top */}
-            <span
-              className={`absolute inset-0 grid place-items-center bg-primary/10 text-primary transition-all duration-300 ${
-                scrolled
-                  ? "scale-0 opacity-0 -rotate-90 pointer-events-none"
-                  : "scale-100 opacity-100 rotate-0"
-              }`}
-            >
-              <ShieldCheck className="h-5 w-5" />
-            </span>
-
-            {/* Profile Photo when scrolled */}
-            <img
-              src="/images/portrait.jpg"
-              alt={profile.name}
-              className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-300 ${
-                scrolled
-                  ? "scale-100 opacity-100 rotate-0"
-                  : "scale-0 opacity-0 rotate-90 pointer-events-none"
-              }`}
-            />
-
-            {/* Hover overlay icon when scrolled */}
-            {scrolled && (
-              <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center backdrop-blur-[0.5px]">
-                <ZoomIn className="h-4 w-4 text-white drop-shadow" />
-              </div>
-            )}
+            <AnimatePresence mode="wait">
+              {!scrolled ? (
+                <motion.span
+                  key="shield"
+                  initial={{ scale: 0.5, opacity: 0, rotate: -45 }}
+                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                  exit={{ scale: 0.5, opacity: 0, rotate: 45 }}
+                  transition={{ duration: 0.25 }}
+                  className="absolute inset-0 grid place-items-center bg-primary/10 text-primary"
+                >
+                  <ShieldCheck className="h-5 w-5" />
+                </motion.span>
+              ) : (
+                <motion.div
+                  key="avatar"
+                  initial={{ scale: 2.2, y: 22, x: 20, opacity: 0 }}
+                  animate={{ scale: 1, y: 0, x: 0, opacity: 1 }}
+                  exit={{ scale: 2.2, y: 22, x: 20, opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 320, damping: 24 }}
+                  className="absolute inset-0 h-full w-full overflow-hidden"
+                >
+                  {/* Light mode photo */}
+                  <img
+                    src="/images/portrait-light.jpg"
+                    alt={profile.name}
+                    className="h-full w-full object-cover object-top block dark:hidden"
+                  />
+                  {/* Dark mode photo */}
+                  <img
+                    src="/images/portrait-dark.jpg"
+                    alt={profile.name}
+                    className="h-full w-full object-cover object-top hidden dark:block"
+                  />
+                  {/* Subtle arrival pulse */}
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0.9 }}
+                    animate={{ scale: 1.5, opacity: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="pointer-events-none absolute inset-0 rounded-full border border-primary"
+                  />
+                  {/* Hover overlay icon when scrolled */}
+                  <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center backdrop-blur-[0.5px]">
+                    <ZoomIn className="h-4 w-4 text-white drop-shadow" />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
 
           <a href="#hero" className="flex flex-col justify-center group">

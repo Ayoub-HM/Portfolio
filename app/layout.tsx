@@ -51,7 +51,13 @@ const noFlashScript = `
 (function () {
   try {
     var t = localStorage.getItem('theme');
-    if (t === 'light') document.documentElement.classList.add('light');
+    if (t === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
     var l = localStorage.getItem('locale');
     if (l === 'fr' || l === 'en') document.documentElement.lang = l;
   } catch (e) {}
@@ -66,7 +72,11 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
+        <script
+          id="noflash"
+          dangerouslySetInnerHTML={{ __html: noFlashScript }}
+          suppressHydrationWarning
+        />
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>
         <ThemeProvider>

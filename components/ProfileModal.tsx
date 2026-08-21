@@ -75,11 +75,18 @@ export function ProfileModal({
             </button>
 
             {/* Photo container constrained to viewport height */}
-            <div className="relative w-full max-h-[58vh] sm:max-h-[64vh] overflow-hidden rounded-2xl border border-border bg-black/60 flex items-center justify-center shadow-inner">
+            <div className="relative w-full max-h-[58vh] sm:max-h-[64vh] overflow-hidden rounded-2xl border border-border bg-black/60 dark:bg-black/80 flex items-center justify-center shadow-inner">
+              {/* Light mode photo */}
               <img
-                src="/images/portrait.jpg"
+                src="/images/portrait-light.jpg"
                 alt={profile.name}
-                className="w-full h-auto max-h-[58vh] sm:max-h-[64vh] object-contain rounded-xl"
+                className="w-full h-auto max-h-[58vh] sm:max-h-[64vh] object-contain rounded-xl block dark:hidden"
+              />
+              {/* Dark mode photo */}
+              <img
+                src="/images/portrait-dark.jpg"
+                alt={profile.name}
+                className="w-full h-auto max-h-[58vh] sm:max-h-[64vh] object-contain rounded-xl hidden dark:block"
               />
             </div>
 

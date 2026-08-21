@@ -29,13 +29,27 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    setThemeState(stored === "light" ? "light" : "dark");
+    const initial: Theme = stored === "light" ? "light" : "dark";
+    setThemeState(initial);
+    if (initial === "light") {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
+    }
   }, []);
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);
     localStorage.setItem(STORAGE_KEY, next);
-    document.documentElement.classList.toggle("light", next === "light");
+    if (next === "light") {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
+    }
   }, []);
 
   const toggleTheme = useCallback(() => {

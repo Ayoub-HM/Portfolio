@@ -2,30 +2,22 @@
 
 import { Reveal } from "./Reveal";
 
-/** Consistent section header: small kicker, title, and optional subtitle. */
+/** Unified section header: horizontal dash with uppercase cyber monospace title. */
 export function SectionHeading({
-  kicker,
   title,
+  kicker,
   subtitle,
 }: {
-  kicker: string;
   title: string;
+  kicker?: string;
   subtitle?: string;
 }) {
   return (
-    <Reveal className="mb-12 max-w-2xl">
-      <div className="mb-3 flex items-center gap-3">
-        <span className="h-px w-8 bg-primary" />
-        <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
-          {kicker}
-        </span>
-      </div>
-      <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-        {title}
+    <Reveal className="mb-8 sm:mb-10">
+      <h2 className="flex items-center gap-3 font-mono text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-wider text-primary">
+        <span className="h-0.5 w-8 sm:w-10 bg-primary shrink-0" />
+        <span>{title}</span>
       </h2>
-      {subtitle ? (
-        <p className="mt-4 text-base leading-relaxed text-muted">{subtitle}</p>
-      ) : null}
     </Reveal>
   );
 }

@@ -6,6 +6,7 @@ import type { Config } from "tailwindcss";
  * Each variable holds space-separated RGB channels so Tailwind can apply opacity.
  */
 const config: Config = {
+  darkMode: "class",
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",

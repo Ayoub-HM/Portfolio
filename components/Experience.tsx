@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, MapPin } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { experiences } from "@/data/experience";
@@ -151,11 +152,7 @@ export function Experience() {
 
   return (
     <section id="experience" className="section-padding">
-      <SectionHeading
-        kicker={m.experience.kicker}
-        title={m.experience.title}
-        subtitle={m.experience.subtitle}
-      />
+      <SectionHeading title={m.experience.title} />
 
       {/* Filter Tabs */}
       <div className="mb-10 flex flex-wrap items-center justify-center gap-2">
@@ -222,19 +219,28 @@ export function Experience() {
                     <div className="absolute top-4 -bottom-10 sm:-bottom-12 left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary/80 via-primary/30 to-border/40 z-0" />
                   )}
 
-                  <div className="relative z-10 grid h-9 w-9 place-items-center rounded-full border-2 border-primary bg-[#090d16] text-primary shadow-[0_0_14px_rgba(14,165,233,0.35)] transition-transform hover:scale-110">
+                  <div className="relative z-10 grid h-9 w-9 place-items-center rounded-full border-2 border-primary bg-background text-primary shadow-sm dark:shadow-[0_0_14px_rgba(14,165,233,0.35)] transition-all hover:scale-110">
                     {item.type === "experience" ? (
-                      <Briefcase className="h-4 w-4 text-sky-400" />
+                      <Briefcase className="h-4 w-4 text-primary" />
                     ) : (
-                      <GraduationCap className="h-4 w-4 text-cyan-300" />
+                      <GraduationCap className="h-4 w-4 text-primary" />
                     )}
                   </div>
                 </div>
 
-                {/* 3. Right Column: Card Content */}
-                <div className="glass-card p-5 sm:p-6 transition-all hover:border-primary/40 group">
+                {/* 3. Right Column: Card Content with Holographic Sheen */}
+                <motion.div
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                  className="glass-card relative overflow-hidden p-5 sm:p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_30px_-10px_rgba(14,165,233,0.25)] group"
+                >
+                  {/* Holographic light reflection on hover */}
+                  <div className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/5 to-transparent -rotate-45 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
+
+                  {/* Ambient subtle aura */}
+                  <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-primary/10 blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
+
                   {/* Mobile Date Header (visible on screens < md) */}
-                  <div className="flex md:hidden items-center justify-between gap-2 mb-3 pb-2.5 border-b border-border/60">
+                  <div className="flex md:hidden items-center justify-between gap-2 mb-3 pb-2.5 border-b border-border/60 relative z-10">
                     <span className="font-mono text-xs font-bold text-foreground">
                       {item.period[locale]}
                     </span>
@@ -247,11 +253,11 @@ export function Experience() {
                   </div>
 
                   {/* Header: Badge + Role/Degree + Company/School */}
-                  <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div className="flex flex-wrap items-start justify-between gap-2 relative z-10">
                     <div>
                       {/* Type Badge */}
                       <span
-                        className={`inline-flex items-center gap-1 rounded-md px-2.5 py-0.5 font-mono text-[0.68rem] font-bold ${
+                        className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-0.5 font-mono text-[0.68rem] font-bold ${
                           item.type === "experience"
                             ? "border border-sky-500/30 bg-sky-500/10 text-sky-400"
                             : "border border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
@@ -293,25 +299,25 @@ export function Experience() {
 
                   {/* Description for experiences */}
                   {item.type === "experience" && item.description && (
-                    <p className="mt-3.5 text-sm text-muted leading-relaxed">
+                    <p className="mt-3.5 text-sm text-slate-900 dark:text-slate-200 font-normal leading-relaxed relative z-10">
                       {item.description[locale]}
                     </p>
                   )}
 
                   {/* Focus for education */}
                   {item.type === "education" && item.focus && (
-                    <p className="mt-3.5 text-sm text-muted leading-relaxed">
+                    <p className="mt-3.5 text-sm text-slate-900 dark:text-slate-200 font-normal leading-relaxed relative z-10">
                       {item.focus[locale]}
                     </p>
                   )}
 
                   {/* Responsibilities list for experiences (Action Verbs) */}
                   {item.type === "experience" && item.responsibilities && (
-                    <ul className="mt-3.5 space-y-1.5">
+                    <ul className="mt-3.5 space-y-1.5 relative z-10">
                       {item.responsibilities[locale].map((resp, idx) => (
                         <li
                           key={idx}
-                          className="flex gap-2.5 text-sm leading-relaxed text-slate-300"
+                          className="flex gap-2.5 text-sm leading-relaxed text-slate-900 dark:text-slate-200"
                         >
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                           <span>{resp}</span>
@@ -322,13 +328,13 @@ export function Experience() {
 
                   {/* Highlights list for education (Action Verbs) */}
                   {item.type === "education" && item.highlights && (
-                    <ul className="mt-3.5 space-y-1.5">
+                    <ul className="mt-3.5 space-y-1.5 relative z-10">
                       {item.highlights[locale].map((hl, idx) => (
                         <li
                           key={idx}
-                          className="flex gap-2.5 text-sm leading-relaxed text-slate-300"
+                          className="flex gap-2.5 text-sm leading-relaxed text-slate-900 dark:text-slate-200"
                         >
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
                           <span>{hl}</span>
                         </li>
                       ))}
@@ -337,18 +343,18 @@ export function Experience() {
 
                   {/* Technologies tags */}
                   {item.technologies && item.technologies.length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-1.5 pt-1">
+                    <div className="mt-4 flex flex-wrap gap-1.5 pt-1 relative z-10">
                       {item.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-md border border-border bg-surface-2 px-2.5 py-0.5 font-mono text-[0.7rem] text-muted"
+                          className="rounded-md border border-border/80 bg-surface-2 px-2.5 py-0.5 font-mono text-[0.7rem] text-slate-900 dark:text-slate-200 font-semibold transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-white"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
                   )}
-                </div>
+                </motion.div>
               </div>
             </Reveal>
           ))}

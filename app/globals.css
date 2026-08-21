@@ -22,12 +22,12 @@
 }
 
 :root.light {
-  --background: 241 245 249; /* #F1F5F9 */
-  --surface: 255 255 255;
-  --surface-2: 248 250 252;
-  --border: 226 232 240; /* #E2E8F0 */
-  --foreground: 15 23 42; /* #0F172A */
-  --muted: 71 85 105; /* #475569 */
+  --background: 248 250 252; /* #F8FAFC */
+  --surface: 255 255 255; /* Pure White */
+  --surface-2: 241 245 249; /* #F1F5F9 */
+  --border: 203 213 225; /* #CBD5E1 */
+  --foreground: 2 6 23; /* #020617 - Jet Black */
+  --muted: 15 23 42; /* #0F172A - Deep Black/Slate 900 */
   --primary: 2 132 199; /* #0284C7 */
   --primary-deep: 3 105 161;
   --accent: 8 145 178; /* #0891B2 */

@@ -4,13 +4,12 @@ import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 24, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1 },
 };
 
 /**
- * Subtle fade-up that triggers once when the element scrolls into view.
- * Honors prefers-reduced-motion via Framer Motion's reducedMotion handling.
+ * Smooth spring fade-up that triggers when elements scroll into view.
  */
 export function Reveal({
   children,
@@ -27,8 +26,13 @@ export function Reveal({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{
+        type: "spring",
+        damping: 24,
+        stiffness: 220,
+        delay,
+      }}
     >
       {children}
     </motion.div>
