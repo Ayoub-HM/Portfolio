@@ -76,7 +76,7 @@
   }
 
   .section-padding {
-    @apply mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28;
+    @apply mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-10 lg:py-12;
   }
 
   /* Subtle glowing text for accents */

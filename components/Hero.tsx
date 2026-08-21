@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Lock, ZoomIn } from "lucide-react";
+import { ArrowRight, CalendarDays, Download, ZoomIn } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
 import { HeroVisual } from "./HeroVisual";
@@ -24,7 +24,7 @@ export function Hero() {
         <div className="absolute top-40 -left-20 h-80 w-80 rounded-full bg-accent/10 blur-[120px]" />
       </div>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:pb-24">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-8 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:pb-12">
         {/* Left: copy + portrait */}
         <div>
           {/* Header with Photo on the left + Name & Badge below name */}
@@ -91,6 +91,16 @@ export function Hero() {
             {m.hero.subtitle}
           </motion.p>
 
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.13 }}
+            className="mt-2.5 inline-flex items-center gap-2 font-mono text-xs text-muted"
+          >
+            <CalendarDays className="h-3.5 w-3.5 text-accent" />
+            <span>{m.hero.rhythm}</span>
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -121,16 +131,6 @@ export function Hero() {
               {m.hero.downloadCV}
               <Download className="h-4 w-4" />
             </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 inline-flex items-center gap-2 font-mono text-xs text-muted"
-          >
-            <Lock className="h-3.5 w-3.5 text-accent" />
-            {m.about.available} · {m.about.availableDetail}
           </motion.div>
         </div>
 

@@ -24,8 +24,9 @@
     "badge": "M2 cybersécurité & IA - EFREI",
     "name": "Ayoub HAMMOU",
     "subtitle": "Recherche d'une alternance de 12 mois à partir de septembre 2026",
-    "intro": "Passionné par la défense des systèmes, la gestion des identités et des accès, la supervision des menaces et la construction d'environnements sécurisés et conformes. J'aime transformer des concepts de sécurité complexes en solutions concrètes et opérationnelles.",
-    "viewProjects": "Voir mes projets",
+    "rhythm": "Rythme : 2 semaines entreprise / 1 semaine école",
+    "intro": "Parce que votre infrastructure est au cœur de votre activité, ma mission est de vous aider à la protéger au quotidien. Après 3 années passées sur le terrain en systèmes et réseaux, j'ai développé une approche qui allie la technique (DevSecOps, IAM) à la stratégie (GRC). Aujourd'hui en Master Cybersécurité & IA à l’EFREI, je ne m'arrête pas à la simple recherche de failles : j'accompagne les équipes pour construire ensemble des environnements résilients, conformes et sécurisés sur le long terme.",
+    "viewProjects": "Découvrir mes projets",
     "downloadCV": "Télécharger mon CV",
     "scroll": "Défiler",
     "consoleTitle": "ayoub@soc: ~",
@@ -44,8 +45,8 @@
   "about": {
     "kicker": "Profil",
     "title": "À propos de moi",
-    "p1": "Étudiant en cybersécurité focalisé sur la gestion des identités et des accès (IAM/PAM), les opérations de sécurité (SOC) et la gouvernance, le risque et la conformité (GRC). Je m'appuie sur une solide expérience de superviseur IT en environnement bancaire critique, où j'ai piloté des centaines d'alertes en temps réel et géré des incidents 24/7.",
-    "p2": "J'aime construire des labs, automatiser des workflows et analyser des données de sécurité pour renforcer les organisations. Je développe aujourd'hui une expertise transverse à travers des projets concrets en DevSecOps, Cloud Security, durcissement et pentest.",
+    "p1": "Parce que votre infrastructure est au cœur de votre activité, ma mission est de vous aider à la protéger au quotidien. Après 3 années passées sur le terrain en systèmes et réseaux, j'ai développé une approche qui allie la technique (DevSecOps, IAM) à la stratégie (GRC).",
+    "p2": "Aujourd'hui en Master Cybersécurité & IA à l’EFREI, je ne m'arrête pas à la simple recherche de failles : j'accompagne les équipes pour construire ensemble des environnements résilients, conformes et sécurisés sur le long terme.",
     "points": [
       "Esprit analytique",
       "Créateur de labs pratiques",

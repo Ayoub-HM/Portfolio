@@ -24,8 +24,9 @@
     "badge": "M2 Cybersecurity & AI - EFREI",
     "name": "Ayoub HAMMOU",
     "subtitle": "Looking for a 12-month apprenticeship starting September 2026",
-    "intro": "Passionate about defending systems, managing identities and access, monitoring threats, and building secure, compliant environments. I love turning complex security concepts into practical, real-world solutions.",
-    "viewProjects": "View Projects",
+    "rhythm": "Pace: 2 weeks company / 1 week school",
+    "intro": "Because your infrastructure is at the heart of your business, my mission is to help you protect it every day. With 3 years of hands-on experience in systems and networks, I have developed an approach combining technical depth (DevSecOps, IAM) with strategic vision (GRC). Currently in the Master's program in Cybersecurity & AI at EFREI, I go beyond merely identifying vulnerabilities: I work alongside teams to build resilient, compliant, and secure environments for the long run.",
+    "viewProjects": "Explore my projects",
     "downloadCV": "Download CV",
     "scroll": "Scroll",
     "consoleTitle": "ayoub@soc: ~",
@@ -44,8 +45,8 @@
   "about": {
     "kicker": "Profile",
     "title": "About Me",
-    "p1": "Cybersecurity student focused on Identity & Access Management (IAM/PAM), Security Operations (SOC), and Governance, Risk & Compliance (GRC). I build on solid experience as an IT supervisor in a critical banking environment, where I handled hundreds of real-time alerts and managed incidents 24/7.",
-    "p2": "I enjoy building labs, automating workflows, and analyzing security data to strengthen organizations. I am now developing cross-domain expertise through hands-on projects in DevSecOps, Cloud Security, hardening, and pentesting.",
+    "p1": "Because your infrastructure is at the heart of your business, my mission is to help you protect it every day. With 3 years of hands-on experience in systems and networks, I have developed an approach combining technical depth (DevSecOps, IAM) with strategic vision (GRC).",
+    "p2": "Currently in the Master's program in Cybersecurity & AI at EFREI, I go beyond merely identifying vulnerabilities: I work alongside teams to build resilient, compliant, and secure environments for the long run.",
     "points": [
       "Strong analytical mindset",
       "Hands-on lab builder",
