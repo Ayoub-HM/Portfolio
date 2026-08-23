@@ -7,33 +7,33 @@
  * Dark theme is the default (:root); `.light` on <html> overrides it.
  */
 :root {
-  --background: 5 11 24; /* #050B18 */
-  --surface: 9 16 32; /* card base */
-  --surface-2: 14 23 42; /* #0E172A */
-  --border: 30 41 59; /* #1E293B */
-  --foreground: 229 231 235; /* #E5E7EB */
+  --background: 4 8 20; /* #040814 - Midnight Obsidian & Deep Indigo */
+  --surface: 8 16 36; /* #081024 - Prismatic Cyber Glass */
+  --surface-2: 14 26 56; /* #0E1A38 - Elevated Indigo Glass */
+  --border: 30 55 96; /* #1E3760 - Quantum Electric Border */
+  --foreground: 241 245 249; /* #F1F5F9 - Platinum Frost */
   --muted: 148 163 184; /* #94A3B8 */
-  --primary: 14 165 233; /* #0EA5E9 */
-  --primary-deep: 2 132 199; /* #0284C7 */
-  --accent: 34 211 238; /* #22D3EE */
-  --success: 16 185 129; /* #10B981 */
-  --warning: 245 158 11; /* #F59E0B */
-  --danger: 239 68 68; /* #EF4444 */
+  --primary: 56 189 248; /* #38BDF8 - Electric Laser Cyan */
+  --primary-deep: 14 165 233; /* #0EA5E9 */
+  --accent: 129 140 248; /* #818CF8 - Quantum Indigo-Violet */
+  --success: 52 211 153; /* #34D399 - Mint Emerald */
+  --warning: 251 191 36; /* #FBBF24 - Radiant Amber */
+  --danger: 251 113 133; /* #FB7185 - Coral Rose */
 }
 
 :root.light {
-  --background: 248 250 252; /* #F8FAFC */
+  --background: 246 250 248; /* #F6FAF8 - Crisp Alabaster Mint */
   --surface: 255 255 255; /* Pure White */
-  --surface-2: 241 245 249; /* #F1F5F9 */
-  --border: 203 213 225; /* #CBD5E1 */
+  --surface-2: 238 245 242; /* #EEF5F2 */
+  --border: 200 219 212; /* #C8DBD4 */
   --foreground: 2 6 23; /* #020617 - Jet Black */
-  --muted: 15 23 42; /* #0F172A - Deep Black/Slate 900 */
-  --primary: 2 132 199; /* #0284C7 */
-  --primary-deep: 3 105 161;
-  --accent: 8 145 178; /* #0891B2 */
-  --success: 5 150 105;
+  --muted: 15 23 42; /* #0F172A - Deep Slate 900 */
+  --primary: 5 150 105; /* #059669 - Rich Deep Emerald */
+  --primary-deep: 4 120 87; /* #047857 */
+  --accent: 8 145 178; /* #0891B2 - Cyber Teal */
+  --success: 22 163 74; /* #16A34A */
   --warning: 217 119 6;
-  --danger: 220 38 38;
+  --danger: 225 29 72;
 }
 
 @layer base {

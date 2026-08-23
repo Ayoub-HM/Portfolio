@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, MapPin } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Briefcase, ChevronDown, GraduationCap, MapPin, Layers } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { experiences } from "@/data/experience";
 import { education } from "@/data/education";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
+import { CollapsibleSection } from "./ui/CollapsibleSection";
 
 type FilterType = "all" | "experience" | "education";
 
@@ -144,222 +145,379 @@ const timelineItems: TimelineItem[] = [
 export function Experience() {
   const { locale, m } = useI18n();
   const [filter, setFilter] = useState<FilterType>("all");
+  // Set of opened item IDs (empty by default so initially all are collapsed)
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
   const filteredItems = timelineItems.filter((item) => {
     if (filter === "all") return true;
     return item.type === filter;
   });
 
-  return (
-    <section id="experience" className="section-padding">
-      <SectionHeading title={m.experience.title} />
+  const toggleExpand = (id: string) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
 
-      {/* Filter Tabs */}
-      <div className="mb-10 flex flex-wrap items-center justify-center gap-2">
+  const toggleAllItems = () => {
+    if (expandedIds.size === filteredItems.length) {
+      setExpandedIds(new Set());
+    } else {
+      setExpandedIds(new Set(filteredItems.map((item) => item.id)));
+    }
+  };
+
+  const allExpanded = filteredItems.length > 0 && expandedIds.size === filteredItems.length;
+
+  return (
+    <CollapsibleSection
+      id="experience"
+      title={m.experience.title}
+      badgeCount={`${timelineItems.length} ${locale === "fr" ? "étapes" : "steps"}`}
+    >
+      {/* Filter Tabs & Quick Expand-All Toggle */}
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setFilter("all")}
+            className={`rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer ${
+              filter === "all"
+                ? "bg-primary text-white shadow-glow"
+                : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
+            }`}
+          >
+            {m.experience.filterAll} ({timelineItems.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilter("experience")}
+            className={`inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer ${
+              filter === "experience"
+                ? "bg-primary text-white shadow-glow"
+                : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
+            }`}
+          >
+            <Briefcase className="h-3.5 w-3.5" />
+            {m.experience.filterExp} ({experiences.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilter("education")}
+            className={`inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer ${
+              filter === "education"
+                ? "bg-primary text-white shadow-glow"
+                : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
+            }`}
+          >
+            <GraduationCap className="h-3.5 w-3.5" />
+            {m.experience.filterEdu} ({education.length})
+          </button>
+        </div>
+
+        {/* Expand / Collapse All Details Button */}
         <button
           type="button"
-          onClick={() => setFilter("all")}
-          className={`rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all cursor-pointer ${
-            filter === "all"
-              ? "bg-primary text-white shadow-glow"
-              : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
-          }`}
+          onClick={toggleAllItems}
+          className="inline-flex items-center gap-1.5 rounded-xl border border-border/80 bg-surface-2/80 px-3 py-1.5 font-mono text-xs font-semibold text-muted hover:text-primary hover:border-primary/50 transition-all cursor-pointer shadow-xs"
         >
-          {m.experience.filterAll} ({timelineItems.length})
-        </button>
-        <button
-          type="button"
-          onClick={() => setFilter("experience")}
-          className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all cursor-pointer ${
-            filter === "experience"
-              ? "bg-primary text-white shadow-glow"
-              : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
-          }`}
-        >
-          <Briefcase className="h-3.5 w-3.5" />
-          {m.experience.filterExp} ({experiences.length})
-        </button>
-        <button
-          type="button"
-          onClick={() => setFilter("education")}
-          className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all cursor-pointer ${
-            filter === "education"
-              ? "bg-primary text-white shadow-glow"
-              : "border border-border bg-surface-2 text-muted hover:border-primary/40 hover:text-foreground"
-          }`}
-        >
-          <GraduationCap className="h-3.5 w-3.5" />
-          {m.experience.filterEdu} ({education.length})
+          <span>
+            {allExpanded
+              ? locale === "fr"
+                ? "Tout masquer"
+                : "Collapse all"
+              : locale === "fr"
+              ? "Tout afficher"
+              : "Expand all"}
+          </span>
+          <motion.div
+            animate={{ rotate: allExpanded ? 180 : 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 22 }}
+          >
+            <ChevronDown className="h-3.5 w-3.5" />
+          </motion.div>
         </button>
       </div>
 
       {/* Timeline Layout with Dates on the Left side of Circles */}
       <div className="relative">
-        <div className="space-y-8 sm:space-y-10">
-          {filteredItems.map((item, i) => (
-            <Reveal key={item.id} delay={(i % 4) * 0.05}>
-              <div className="relative grid grid-cols-[36px_1fr] md:grid-cols-[170px_40px_1fr] items-start gap-3 sm:gap-5">
-                {/* 1. Left Column: Date & Period (visible on desktop md:flex) */}
-                <div className="hidden md:flex flex-col items-end pt-2 pr-2 text-right">
-                  <span className="font-mono text-xs lg:text-sm font-bold text-foreground">
-                    {item.period[locale]}
-                  </span>
-                  {item.current && (
-                    <span className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 font-mono text-[0.65rem] font-bold text-success uppercase">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
-                      {m.experience.current}
-                    </span>
-                  )}
-                </div>
+        <div className="space-y-6 sm:space-y-8">
+          {filteredItems.map((item, i) => {
+            const isItemExpanded = expandedIds.has(item.id);
 
-                {/* 2. Center Column: Timeline Node Circle + Perfectly Centered Line */}
-                <div className="relative flex justify-center h-full pt-1">
-                  {/* Vertical connector line passing directly through the middle of the circle */}
-                  {i !== filteredItems.length - 1 && (
-                    <div className="absolute top-4 -bottom-10 sm:-bottom-12 left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary/80 via-primary/30 to-border/40 z-0" />
-                  )}
-
-                  <div className="relative z-10 grid h-9 w-9 place-items-center rounded-full border-2 border-primary bg-background text-primary shadow-sm dark:shadow-[0_0_14px_rgba(14,165,233,0.35)] transition-all hover:scale-110">
-                    {item.type === "experience" ? (
-                      <Briefcase className="h-4 w-4 text-primary" />
-                    ) : (
-                      <GraduationCap className="h-4 w-4 text-primary" />
-                    )}
-                  </div>
-                </div>
-
-                {/* 3. Right Column: Card Content with Holographic Sheen */}
-                <motion.div
-                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                  className="glass-card relative overflow-hidden p-5 sm:p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_30px_-10px_rgba(14,165,233,0.25)] group"
-                >
-                  {/* Holographic light reflection on hover */}
-                  <div className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/5 to-transparent -rotate-45 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
-
-                  {/* Ambient subtle aura */}
-                  <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-primary/10 blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
-
-                  {/* Mobile Date Header (visible on screens < md) */}
-                  <div className="flex md:hidden items-center justify-between gap-2 mb-3 pb-2.5 border-b border-border/60 relative z-10">
-                    <span className="font-mono text-xs font-bold text-foreground">
+            return (
+              <Reveal key={item.id} delay={(i % 4) * 0.05}>
+                <div className="relative grid grid-cols-[36px_1fr] md:grid-cols-[170px_40px_1fr] items-start gap-3 sm:gap-5">
+                  {/* 1. Left Column: Date & Period (visible on desktop md:flex) */}
+                  <div className="hidden md:flex flex-col items-end pt-2.5 pr-2 text-right">
+                    <span className="font-mono text-xs lg:text-sm font-bold text-foreground">
                       {item.period[locale]}
                     </span>
                     {item.current && (
-                      <span className="inline-flex items-center gap-1 rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 font-mono text-[0.65rem] font-bold text-success uppercase">
+                      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 font-mono text-[0.65rem] font-bold text-success uppercase">
                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
                         {m.experience.current}
                       </span>
                     )}
                   </div>
 
-                  {/* Header: Badge + Role/Degree + Company/School */}
-                  <div className="flex flex-wrap items-start justify-between gap-2 relative z-10">
-                    <div>
-                      {/* Type Badge */}
-                      <span
-                        className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-0.5 font-mono text-[0.68rem] font-bold ${
-                          item.type === "experience"
-                            ? "border border-sky-500/30 bg-sky-500/10 text-sky-400"
-                            : "border border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
-                        }`}
-                      >
-                        {item.type === "experience" ? (
-                          <Briefcase className="h-3 w-3" />
-                        ) : (
-                          <GraduationCap className="h-3 w-3" />
-                        )}
-                        {item.type === "experience"
-                          ? m.experience.badgeExp
-                          : m.experience.badgeEdu}
-                      </span>
+                  {/* 2. Center Column: Timeline Node Circle + Perfectly Centered Line */}
+                  <div className="relative flex justify-center h-full pt-1.5">
+                    {/* Vertical connector line passing directly through the middle of the circle */}
+                    {i !== filteredItems.length - 1 && (
+                      <div className="absolute top-4 -bottom-8 sm:-bottom-10 left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary/80 via-primary/30 to-border/40 z-0" />
+                    )}
 
-                      {/* Title */}
-                      <h3 className="mt-2 text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                        {item.type === "experience"
-                          ? item.role[locale]
-                          : item.degree[locale]}
-                      </h3>
-
-                      {/* Company / School + Location */}
-                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-                        <span className="font-semibold text-primary">
-                          {item.type === "experience"
-                            ? item.company
-                            : item.school}
-                        </span>
-                        {item.location && (
-                          <span className="inline-flex items-center gap-1 text-muted">
-                            <MapPin className="h-3.5 w-3.5" />
-                            {item.location[locale]}
-                          </span>
-                        )}
-                      </div>
+                    <div
+                      onClick={() => toggleExpand(item.id)}
+                      className="relative z-10 grid h-9 w-9 place-items-center rounded-full border-2 border-primary bg-background text-primary shadow-sm dark:shadow-[0_0_14px_rgba(16,185,129,0.4)] transition-all hover:scale-110 cursor-pointer"
+                      title={isItemExpanded ? "Réduire" : "Développer"}
+                    >
+                      {item.type === "experience" ? (
+                        <Briefcase className="h-4 w-4 text-primary" />
+                      ) : (
+                        <GraduationCap className="h-4 w-4 text-primary" />
+                      )}
                     </div>
                   </div>
 
-                  {/* Description for experiences */}
-                  {item.type === "experience" && item.description && (
-                    <p className="mt-3.5 text-sm text-slate-900 dark:text-slate-200 font-normal leading-relaxed relative z-10">
-                      {item.description[locale]}
-                    </p>
-                  )}
+                  {/* 3. Right Column: Card Content with Holographic Sheen */}
+                  <motion.div
+                    whileHover={{ y: -2, transition: { duration: 0.2 } }}
+                    className={`glass-card relative overflow-hidden p-4 sm:p-5 transition-all duration-300 border ${
+                      isItemExpanded
+                        ? "border-primary/50 shadow-md bg-surface"
+                        : "border-border/80 hover:border-primary/40 hover:shadow-sm"
+                    } group`}
+                  >
+                    {/* Holographic light reflection on hover */}
+                    <div className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/5 to-transparent -rotate-45 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
 
-                  {/* Focus for education */}
-                  {item.type === "education" && item.focus && (
-                    <p className="mt-3.5 text-sm text-slate-900 dark:text-slate-200 font-normal leading-relaxed relative z-10">
-                      {item.focus[locale]}
-                    </p>
-                  )}
+                    {/* Ambient subtle aura */}
+                    <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-primary/10 blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
 
-                  {/* Responsibilities list for experiences (Action Verbs) */}
-                  {item.type === "experience" && item.responsibilities && (
-                    <ul className="mt-3.5 space-y-1.5 relative z-10">
-                      {item.responsibilities[locale].map((resp, idx) => (
-                        <li
-                          key={idx}
-                          className="flex gap-2.5 text-sm leading-relaxed text-slate-900 dark:text-slate-200"
-                        >
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                          <span>{resp}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {/* Highlights list for education (Action Verbs) */}
-                  {item.type === "education" && item.highlights && (
-                    <ul className="mt-3.5 space-y-1.5 relative z-10">
-                      {item.highlights[locale].map((hl, idx) => (
-                        <li
-                          key={idx}
-                          className="flex gap-2.5 text-sm leading-relaxed text-slate-900 dark:text-slate-200"
-                        >
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
-                          <span>{hl}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {/* Technologies tags */}
-                  {item.technologies && item.technologies.length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-1.5 pt-1 relative z-10">
-                      {item.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-md border border-border/80 bg-surface-2 px-2.5 py-0.5 font-mono text-[0.7rem] text-slate-900 dark:text-slate-200 font-semibold transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-white"
-                        >
-                          {tech}
+                    {/* Mobile Date Header (visible on screens < md) */}
+                    <div className="flex md:hidden items-center justify-between gap-2 mb-2 pb-2 border-b border-border/60 relative z-10">
+                      <span className="font-mono text-xs font-bold text-foreground">
+                        {item.period[locale]}
+                      </span>
+                      {item.current && (
+                        <span className="inline-flex items-center gap-1 rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 font-mono text-[0.65rem] font-bold text-success uppercase">
+                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
+                          {m.experience.current}
                         </span>
-                      ))}
+                      )}
                     </div>
-                  )}
-                </motion.div>
-              </div>
-            </Reveal>
-          ))}
+
+                    {/* Header: Clickable Title & Details trigger */}
+                    <div
+                      onClick={() => toggleExpand(item.id)}
+                      className="flex items-start justify-between gap-3 relative z-10 cursor-pointer select-none"
+                    >
+                      <div className="min-w-0 flex-1">
+                        {/* Type Badge */}
+                        <span
+                          className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-0.5 font-mono text-[0.68rem] font-bold ${
+                            item.type === "experience"
+                              ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                              : "border border-cyan-500/30 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400"
+                          }`}
+                        >
+                          {item.type === "experience" ? (
+                            <Briefcase className="h-3 w-3" />
+                          ) : (
+                            <GraduationCap className="h-3 w-3" />
+                          )}
+                          {item.type === "experience"
+                            ? m.experience.badgeExp
+                            : m.experience.badgeEdu}
+                        </span>
+
+                        {/* Title */}
+                        <h3 className="mt-1.5 text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                          {item.type === "experience"
+                            ? item.role[locale]
+                            : item.degree[locale]}
+                        </h3>
+
+                        {/* Company / School + Location */}
+                        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm text-muted">
+                          <span className="font-semibold text-primary">
+                            {item.type === "experience"
+                              ? item.company
+                              : item.school}
+                          </span>
+                          {item.location && (
+                            <span className="inline-flex items-center gap-1 text-muted">
+                              <MapPin className="h-3.5 w-3.5" />
+                              {item.location[locale]}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Expand / Collapse Chevron Button */}
+                      <div
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 mt-1 ${
+                          isItemExpanded
+                            ? "border-primary/60 bg-primary/20 text-primary shadow-[0_0_12px_rgba(56,189,248,0.25)]"
+                            : "border-border/80 bg-surface-2 text-muted group-hover:border-primary/50 group-hover:text-primary group-hover:bg-primary/10"
+                        }`}
+                        title={
+                          isItemExpanded
+                            ? locale === "fr"
+                              ? "Masquer les détails"
+                              : "Hide details"
+                            : locale === "fr"
+                            ? "Afficher les détails"
+                            : "Show details"
+                        }
+                      >
+                        <motion.div
+                          animate={{ rotate: isItemExpanded ? 180 : 0 }}
+                          transition={{ type: "spring", stiffness: 320, damping: 22 }}
+                        >
+                          <ChevronDown className="h-4 w-4" />
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Expandable Details Section */}
+                    <AnimatePresence initial={false}>
+                      {isItemExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden relative z-10"
+                        >
+                          <div className="pt-3.5 mt-3 border-t border-border/50">
+                            {/* Description for experiences */}
+                            {item.type === "experience" && item.description && (
+                              <p className="text-sm text-slate-800 dark:text-slate-200 font-normal leading-relaxed whitespace-pre-line mb-3">
+                                {item.description[locale]}
+                              </p>
+                            )}
+
+                            {/* Focus for education */}
+                            {item.type === "education" && item.focus && (
+                              <p className="text-sm text-slate-800 dark:text-slate-200 font-normal leading-relaxed whitespace-pre-line mb-3.5">
+                                {item.focus[locale]}
+                              </p>
+                            )}
+
+                            {/* Responsibilities list for experiences */}
+                            {item.type === "experience" && item.responsibilities && (
+                              <div className="space-y-2 mb-3.5">
+                                {item.responsibilities[locale].map((resp, idx) => {
+                                  const separatorIndex = resp.indexOf(" : ");
+                                  if (separatorIndex !== -1) {
+                                    const title = resp.slice(0, separatorIndex);
+                                    const desc = resp.slice(separatorIndex + 3);
+                                    return (
+                                      <div
+                                        key={idx}
+                                        className="flex gap-2.5 text-sm leading-relaxed text-slate-800 dark:text-slate-200"
+                                      >
+                                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                                        <span>
+                                          <strong className="font-semibold text-foreground">{title} :</strong>{" "}
+                                          <span>{desc}</span>
+                                        </span>
+                                      </div>
+                                    );
+                                  }
+                                  return (
+                                    <div
+                                      key={idx}
+                                      className="flex gap-2.5 text-sm leading-relaxed text-slate-800 dark:text-slate-200"
+                                    >
+                                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                                      <span>{resp}</span>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
+
+                            {/* Highlights list for education */}
+                            {item.type === "education" && item.highlights && (
+                              <div className="space-y-2 mb-3.5">
+                                {item.highlights[locale].map((hl, idx) => {
+                                  if (hl.startsWith("🔹")) {
+                                    return (
+                                      <div
+                                        key={idx}
+                                        className="pt-3 pb-1 font-mono text-xs sm:text-sm font-bold text-primary flex items-center gap-2 border-b border-primary/20 mt-3 mb-1.5"
+                                      >
+                                        <span>{hl}</span>
+                                      </div>
+                                    );
+                                  }
+
+                                  const separatorIndex = hl.indexOf(" : ");
+                                  if (separatorIndex !== -1) {
+                                    const title = hl.slice(0, separatorIndex);
+                                    const desc = hl.slice(separatorIndex + 3);
+                                    return (
+                                      <div
+                                        key={idx}
+                                        className="flex gap-2.5 text-sm leading-relaxed text-slate-800 dark:text-slate-200"
+                                      >
+                                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                                        <span>
+                                          <strong className="font-semibold text-foreground">{title} :</strong>{" "}
+                                          <span>{desc}</span>
+                                        </span>
+                                      </div>
+                                    );
+                                  }
+
+                                  return (
+                                    <div
+                                      key={idx}
+                                      className="flex gap-2.5 text-sm leading-relaxed text-slate-800 dark:text-slate-200"
+                                    >
+                                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                                      <span>{hl}</span>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
+
+                            {/* Technologies tags */}
+                            {item.technologies && item.technologies.length > 0 && (
+                              <div className="flex flex-wrap gap-1.5 pt-1">
+                                {item.technologies.map((tech) => (
+                                  <span
+                                    key={tech}
+                                    className="rounded-md border border-border/80 bg-surface-2 px-2.5 py-0.5 font-mono text-[0.7rem] text-slate-900 dark:text-slate-200 font-semibold transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-white"
+                                  >
+                                    {tech}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }
+

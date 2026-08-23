@@ -17,7 +17,8 @@
     "toggleTheme": "Changer de thème",
     "language": "Langue",
     "github": "Profil GitHub",
-    "linkedin": "Profil LinkedIn"
+    "linkedin": "Profil LinkedIn",
+    "interests": "Divers"
   },
   "hero": {
     "badge": "M2 cybersécurité & IA - EFREI",
@@ -86,7 +87,7 @@
     "title": "Projets",
     "subtitle": "Une sélection de projets académiques et professionnels, du pentest à la gouvernance en passant par le Cloud et le DevSecOps.",
     "viewProject": "Voir le projet",
-    "caseStudy": "Étude de cas",
+    "caseStudy": "Demander le rapport",
     "comingSoon": "Bientôt disponible",
     "viewAll": "Voir tous les dépôts GitHub",
     "filterAll": "Tous"
@@ -137,8 +138,8 @@
   "contact": {
     "kicker": "Contact",
     "title": "Travaillons ensemble",
-    "subtitle": "Ouvert aux opportunités d'alternance, de stage et de collaboration.",
-    "intro": "Disponible en alternance dès septembre 2026 et ouvert aux stages SOC / IAM / DevSecOps. Basé à Paris (Île-de-France). N'hésitez pas à me contacter.",
+    "subtitle": "Ouvert aux opportunités d'alternance et de collaboration.",
+    "intro": "Disponible en alternance dès septembre 2026 en cybersécurité. Basé à Paris (Île-de-France).",
     "emailLabel": "Email",
     "phoneLabel": "Téléphone",
     "locationLabel": "Localisation",
@@ -155,6 +156,14 @@
       "sent": "Message envoyé ✓",
       "note": "Ce formulaire est une démonstration d'interface (sans backend pour le moment)."
     }
+  },
+  "interests": {
+    "kicker": "Divers & Profil",
+    "title": "Divers & Centres d'intérêt",
+    "subtitle": "Langues parlées, passions personnelles et ouverture d'esprit.",
+    "languagesTitle": "Langues & Communication",
+    "interestsTitle": "Centres d'intérêt & Passions",
+    "badgeCount": "3 langues · 4 passions"
   },
   "footer": {
     "rights": "© 2026 Ayoub HAMMOU. Tous droits réservés.",

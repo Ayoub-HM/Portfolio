@@ -4,7 +4,7 @@
  */
 export const profile = {
   name: "Ayoub HAMMOU",
-  initials: "AH",
+  initials: "A.H",
   email: "Ayoubhammou77@gmail.com",
   phone: "+33 7 63 49 61 04",
   phoneHref: "tel:+33763496104",

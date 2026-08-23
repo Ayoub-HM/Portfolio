@@ -20,17 +20,15 @@ export interface Project {
   github?: string;
   /**
    * If true (and no github), the project is a private/report-only lab ->
-   * "Case Study" button that scrolls to the contact section.
-   * If neither github nor caseStudy is set -> disabled "Coming Soon".
+   * "Request Report" button that prefills contact form and scrolls.
    */
   caseStudy?: boolean;
   featured?: boolean;
+  prefilledMessage?: Localized;
 }
 
 /**
  * Only projects that map to real work (GitHub repos or documented lab reports).
- * To add a project: copy a block, set `github` for a public repo OR `caseStudy: true`
- * for a report-only lab. Never link to a repository that does not exist.
  */
 export const projects: Project[] = [
   {
@@ -107,6 +105,10 @@ export const projects: Project[] = [
     category: "PENTEST",
     tags: ["Nmap", "SQLi", "Command Injection", "CVSS", "Linux"],
     caseStudy: true,
+    prefilledMessage: {
+      fr: "Bonjour Ayoub, je souhaiterais consulter votre rapport de pentest Linux (reconnaissance, exploitation et plan de remédiation CVSS). Pourriez-vous me le transmettre ? Merci !",
+      en: "Hello Ayoub, I'd like to review your Linux penetration test report (recon, exploitation, and CVSS remediation plan). Could you share it with me? Thanks!",
+    },
   },
   {
     id: "iam-laposte",
@@ -121,6 +123,10 @@ export const projects: Project[] = [
     category: "IAM",
     tags: ["IAM", "RBAC", "NIS2", "DORA", "Active Directory"],
     caseStudy: true,
+    prefilledMessage: {
+      fr: "Bonjour Ayoub, votre étude de refonte IAM à grande échelle (processus JML, gouvernance RBAC, conformité NIS2/DORA) m'intéresse beaucoup. Serait-il possible de recevoir une synthèse de votre travail ?",
+      en: "Hello Ayoub, your large-scale IAM redesign study (JML processes, RBAC governance, NIS2/DORA compliance) caught my attention. Would it be possible to get an overview of your work?",
+    },
   },
   {
     id: "cloud-medisante",
@@ -135,6 +141,10 @@ export const projects: Project[] = [
     category: "CLOUD",
     tags: ["AWS", "Kubernetes", "Terraform", "HDS", "FinOps"],
     caseStudy: true,
+    prefilledMessage: {
+      fr: "Bonjour Ayoub, je souhaiterais en savoir plus sur votre dossier d'architecture de migration Cloud HDS / AWS (microservices Kubernetes, Terraform et résilience RTO/RPO). Pourriez-vous me partager cette étude de cas ?",
+      en: "Hello Ayoub, I'd like to learn more about your HDS / AWS Cloud migration architecture dossier (Kubernetes, Terraform, RTO/RPO resilience). Could you share this case study?",
+    },
   },
   {
     id: "grc-ovhcloud",
@@ -149,6 +159,10 @@ export const projects: Project[] = [
     category: "GRC",
     tags: ["ISO 27002", "EBIOS RM", "ITIL v4", "Audit"],
     caseStudy: true,
+    prefilledMessage: {
+      fr: "Bonjour Ayoub, je serais ravi de consulter la synthèse de votre audit de maturité et gouvernance sécurité Cloud (ISO 27002 & EBIOS RM). Serait-il possible de me transmettre ce document ?",
+      en: "Hello Ayoub, I would love to review the summary of your Cloud security maturity and governance audit (ISO 27002 & EBIOS RM). Would it be possible to share this document?",
+    },
   },
   {
     id: "hardening-os",
@@ -163,6 +177,10 @@ export const projects: Project[] = [
     category: "HARDENING",
     tags: ["Linux", "Windows Server", "Secure Boot", "Firewall"],
     caseStudy: true,
+    prefilledMessage: {
+      fr: "Bonjour Ayoub, votre méthodologie de durcissement OS et firmware (Linux, Windows Server, Secure Boot/TPM) m'intéresse. Pourriez-vous me transmettre votre guide de durcissement ?",
+      en: "Hello Ayoub, I'm interested in your OS and firmware hardening methodology (Linux, Windows Server, Secure Boot/TPM). Could you share your hardening guide?",
+    },
   },
   {
     id: "soc-zabbix-glpi",
@@ -177,5 +195,9 @@ export const projects: Project[] = [
     category: "SOC",
     tags: ["Zabbix", "Proxmox", "GLPI", "Docker", "Portainer"],
     caseStudy: true,
+    prefilledMessage: {
+      fr: "Bonjour Ayoub, votre retour d'expérience sur le déploiement de supervision Zabbix et GLPI sur cluster Proxmox m'intéresse. Pourriez-vous me partager les détails de vos configurations ?",
+      en: "Hello Ayoub, your experience with deploying Zabbix and GLPI monitoring on a Proxmox cluster looks great. Could you share more details about your setup?",
+    },
   },
 ];

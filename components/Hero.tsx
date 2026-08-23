@@ -21,7 +21,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 cyber-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_30%,transparent_75%)] opacity-50" />
         
-        {/* Animated Floating Cyber Orbs */}
+        {/* Animated Floating Hybrid Cyber Orbs (Cyan + Indigo + Emerald) */}
         <motion.div
           animate={{
             x: [0, 30, -25, 0],
@@ -38,7 +38,16 @@ export function Hero() {
             scale: [1, 0.9, 1.15, 1],
           }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-40 -left-20 h-80 w-80 rounded-full bg-accent/15 blur-[130px]"
+          className="absolute top-40 -left-20 h-80 w-80 rounded-full bg-accent/20 blur-[130px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, 25, -20, 0],
+            y: [0, 25, -30, 0],
+            scale: [0.9, 1.1, 1, 0.9],
+          }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 right-1/4 h-72 w-72 rounded-full bg-emerald-500/15 blur-[140px]"
         />
       </div>
 
@@ -96,8 +105,8 @@ export function Hero() {
                 transition={{ duration: 0.5, delay: 0.08 }}
                 className="mt-2.5"
               >
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 font-mono text-xs text-primary sm:text-sm font-semibold shadow-sm">
-                  <Shield className="h-3.5 w-3.5 text-cyan-300" />
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 font-mono text-xs text-emerald-600 dark:text-emerald-400 sm:text-sm font-semibold shadow-sm">
+                  <Shield className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />
                   <span>{m.hero.badge}</span>
                 </span>
               </motion.div>

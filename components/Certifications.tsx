@@ -4,28 +4,25 @@ import { motion } from "framer-motion";
 import { Award, CircleDashed, ExternalLink } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { certifications } from "@/data/certifications";
-import { SectionHeading } from "./ui/SectionHeading";
-import { Reveal } from "./ui/Reveal";
+import { CollapsibleSection } from "./ui/CollapsibleSection";
 
 export function Certifications() {
   const { locale, m } = useI18n();
 
   return (
-    <section id="certifications" className="section-padding relative">
-      <SectionHeading
-        kicker={m.certifications.kicker}
-        title={m.certifications.title}
-        subtitle={m.certifications.subtitle}
-      />
-
+    <CollapsibleSection
+      id="certifications"
+      title={m.certifications.title}
+      badgeCount={`${certifications.length} ${locale === "fr" ? "certifications" : "certifications"}`}
+    >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {certifications.map((cert, i) => {
           const obtained = cert.status === "obtained";
           return (
-            <Reveal key={cert.id} delay={(i % 3) * 0.08}>
+            <div key={cert.id}>
               <motion.div
                 whileHover={{ y: -5, transition: { duration: 0.2, ease: "easeOut" } }}
-                className="glass-card relative flex h-full items-start gap-4 p-6 overflow-hidden rounded-2xl border border-border/80 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_25px_-8px_rgba(14,165,233,0.25)] group"
+                className="glass-card relative flex h-full items-start gap-4 p-6 overflow-hidden rounded-2xl border border-border/80 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_10px_25px_-8px_rgba(16,185,129,0.3)] group"
               >
                 {/* Holographic light reflection on hover */}
                 <div className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/5 to-transparent -rotate-45 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
@@ -106,10 +103,10 @@ export function Certifications() {
                   </div>
                 </div>
               </motion.div>
-            </Reveal>
+            </div>
           );
         })}
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

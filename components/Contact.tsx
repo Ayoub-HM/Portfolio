@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import {
   Check,
@@ -18,13 +18,34 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
-import { SectionHeading } from "./ui/SectionHeading";
-import { Reveal } from "./ui/Reveal";
+import { CollapsibleSection } from "./ui/CollapsibleSection";
 
 export function Contact() {
   const { locale, m } = useI18n();
   const [sent, setSent] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [messageText, setMessageText] = useState("");
+  const [isPrefilled, setIsPrefilled] = useState(false);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const handlePrefill = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        setMessageText(customEvent.detail);
+        setIsPrefilled(true);
+        setTimeout(() => {
+          nameInputRef.current?.focus();
+        }, 600);
+        setTimeout(() => {
+          setIsPrefilled(false);
+        }, 3500);
+      }
+    };
+    window.addEventListener("prefill-contact-message", handlePrefill);
+    return () => window.removeEventListener("prefill-contact-message", handlePrefill);
+  }, []);
 
   const handleCopy = (text: string, key: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -36,6 +57,7 @@ export function Contact() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSent(true);
+    setMessageText("");
     e.currentTarget.reset();
     setTimeout(() => setSent(false), 4000);
   };
@@ -91,20 +113,17 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" className="section-padding relative">
-      <SectionHeading
-        kicker={m.contact.kicker}
-        title={m.contact.title}
-        subtitle={m.contact.subtitle}
-      />
-
+    <CollapsibleSection
+      id="contact"
+      title={m.contact.title}
+      badgeCount={locale === "fr" ? "Ouvert aux opportunités" : "Available"}
+    >
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Left: Contact Info + Live Status */}
-        <Reveal>
-          <div className="space-y-6">
-            {/* Live Availability Banner */}
-            <div className="rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/10 via-surface-2/70 to-emerald-500/5 p-5 backdrop-blur-md">
-              <div className="flex items-center gap-3">
+        <div className="space-y-6">
+          {/* Live Availability Banner */}
+          <div className="rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/10 via-surface-2/70 to-emerald-500/5 p-5 backdrop-blur-md">
+            <div className="flex items-center gap-3">
                 <span className="relative flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
@@ -166,11 +185,10 @@ export function Contact() {
               ))}
             </div>
           </div>
-        </Reveal>
 
-        {/* Right: Contact Form */}
-        <Reveal delay={0.1}>
-          <form
+          {/* Right: Contact Form */}
+          <div>
+            <form
             onSubmit={handleSubmit}
             className="glass-card flex flex-col gap-4 p-6 sm:p-8 relative overflow-hidden"
           >
@@ -185,6 +203,7 @@ export function Contact() {
                 {m.contact.form.name}
               </label>
               <input
+                ref={nameInputRef}
                 id="name"
                 name="name"
                 type="text"
@@ -211,20 +230,39 @@ export function Contact() {
               />
             </div>
 
-            <div>
-              <label
-                htmlFor="message"
-                className="mb-1.5 block font-mono text-xs font-semibold text-muted"
-              >
-                {m.contact.form.message}
-              </label>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="message"
+                  className="block font-mono text-xs font-semibold text-muted"
+                >
+                  {m.contact.form.message}
+                </label>
+                {isPrefilled && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="inline-flex items-center gap-1 rounded-md bg-primary/20 border border-primary/40 px-2 py-0.5 font-mono text-[0.68rem] font-bold text-primary animate-pulse"
+                  >
+                    ✨ {locale === "fr" ? "Message personnalisé généré" : "Custom message generated"}
+                  </motion.span>
+                )}
+              </div>
               <textarea
+                ref={messageInputRef}
                 id="message"
                 name="message"
                 required
                 rows={4}
+                value={messageText}
+                onChange={(e) => setMessageText(e.target.value)}
                 placeholder={m.contact.form.messagePlaceholder}
-                className="w-full resize-y rounded-xl border border-border/80 bg-surface-2/80 px-4 py-3 text-sm text-foreground placeholder:text-muted/50 transition-all focus:border-primary focus:bg-surface-2 focus:outline-none focus:ring-2 focus:ring-primary/25"
+                className={`w-full resize-y rounded-xl border px-4 py-3 text-sm text-foreground placeholder:text-muted/50 transition-all focus:border-primary focus:bg-surface-2 focus:outline-none focus:ring-2 focus:ring-primary/25 ${
+                  isPrefilled
+                    ? "border-primary bg-primary/10 ring-2 ring-primary/40"
+                    : "border-border/80 bg-surface-2/80"
+                }`}
               />
             </div>
 
@@ -253,8 +291,8 @@ export function Contact() {
               {m.contact.form.note}
             </p>
           </form>
-        </Reveal>
+        </div>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

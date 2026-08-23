@@ -17,7 +17,8 @@
     "toggleTheme": "Toggle theme",
     "language": "Language",
     "github": "GitHub profile",
-    "linkedin": "LinkedIn profile"
+    "linkedin": "LinkedIn profile",
+    "interests": "Interests"
   },
   "hero": {
     "badge": "M2 Cybersecurity & AI - EFREI",
@@ -86,7 +87,7 @@
     "title": "Projects",
     "subtitle": "A selection of academic and professional projects, from pentesting to governance, including Cloud and DevSecOps.",
     "viewProject": "View Project",
-    "caseStudy": "Case Study",
+    "caseStudy": "Request report",
     "comingSoon": "Coming Soon",
     "viewAll": "View all GitHub repositories",
     "filterAll": "All"
@@ -137,8 +138,8 @@
   "contact": {
     "kicker": "Contact",
     "title": "Let's work together",
-    "subtitle": "Open to apprenticeship, internship, and collaboration opportunities.",
-    "intro": "Available for an apprenticeship from September 2026 and open to SOC / IAM / DevSecOps internships. Based in Paris (Île-de-France). Feel free to reach out.",
+    "subtitle": "Open to apprenticeship and collaboration opportunities.",
+    "intro": "Available for an apprenticeship starting September 2026 in cybersecurity. Based in Paris (Île-de-France).",
     "emailLabel": "Email",
     "phoneLabel": "Phone",
     "locationLabel": "Location",
@@ -155,6 +156,14 @@
       "sent": "Message sent ✓",
       "note": "This form is a UI demonstration (no backend for now)."
     }
+  },
+  "interests": {
+    "kicker": "Miscellaneous",
+    "title": "Languages & Interests",
+    "subtitle": "Spoken languages, personal passions, and personal interests.",
+    "languagesTitle": "Languages & Communication",
+    "interestsTitle": "Interests & Passions",
+    "badgeCount": "3 languages · 4 passions"
   },
   "footer": {
     "rights": "© 2026 Ayoub HAMMOU. All rights reserved.",

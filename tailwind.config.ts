@@ -38,8 +38,8 @@ const config: Config = {
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        glow: "0 0 40px -10px rgb(var(--primary) / 0.45)",
-        "glow-accent": "0 0 40px -10px rgb(var(--accent) / 0.45)",
+        glow: "0 0 40px -8px rgb(var(--primary) / 0.45)",
+        "glow-accent": "0 0 40px -8px rgb(var(--accent) / 0.45)",
         card: "0 20px 50px -24px rgb(0 0 0 / 0.6)",
       },
       backgroundImage: {
