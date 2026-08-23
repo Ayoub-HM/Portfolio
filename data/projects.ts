@@ -1,8 +1,8 @@
 import type { Localized } from "@/lib/i18n/config";
 
 export type ProjectCategory =
-  | "PENTEST"
   | "DEVSECOPS"
+  | "PENTEST"
   | "CLOUD"
   | "IAM"
   | "SOC"
@@ -12,10 +12,17 @@ export type ProjectCategory =
 export interface Project {
   id: string;
   title: Localized;
+  subtitle?: Localized;
   description: Localized;
   category: ProjectCategory;
   /** Short, language-neutral tech tags. */
   tags: string[];
+  /** Detailed objective of the project */
+  objective?: Localized;
+  /** Detailed implementation / pipeline steps */
+  steps?: Localized<string[]>;
+  /** Key results, deliverables or impact */
+  results?: Localized;
   /** If set, a real public repo exists -> "View Project" button. */
   github?: string;
   /**
@@ -28,21 +35,47 @@ export interface Project {
 }
 
 /**
- * Only projects that map to real work (GitHub repos or documented lab reports).
+ * Technical and academic projects with rich structured data.
  */
 export const projects: Project[] = [
   {
     id: "devsecops-pipeline",
     title: {
-      fr: "Pipeline DevSecOps — GitHub Actions",
-      en: "DevSecOps Pipeline — GitHub Actions",
+      fr: "Sécurisation continue d'une application Node.js via l'automatisation CI/CD",
+      en: "Continuous Security of a Node.js Application via CI/CD Automation",
+    },
+    subtitle: {
+      fr: "Pipeline DevSecOps sous GitHub Actions (Approche Shift-Left)",
+      en: "DevSecOps Pipeline with GitHub Actions (Shift-Left Approach)",
     },
     description: {
-      fr: "Sécurisation d'une application Node.js via un pipeline CI/CD automatisé : SAST (Semgrep), analyse de dépendances, détection de secrets (Gitleaks) et scan d'image Docker (Trivy), avec génération d'un rapport de sécurité à chaque commit.",
-      en: "Securing a Node.js application through an automated CI/CD pipeline: SAST (Semgrep), dependency analysis, secrets detection (Gitleaks), and Docker image scanning (Trivy), generating a security report on every commit.",
+      fr: "Sécurisation continue d'une application Node.js (approche Shift-Left) via GitHub Actions : détection de secrets avec Gitleaks, analyse statique SAST avec Semgrep, et scan de l'image Docker & dépendances avec Trivy. Génération automatique d'un rapport d'audit bloquant tout déploiement vulnérable.",
+      en: "Continuous security of a Node.js application (Shift-Left approach) via GitHub Actions: secret detection with Gitleaks, SAST static analysis with Semgrep, and Docker image & dependency scanning with Trivy. Automated audit report generation preventing vulnerable deployments.",
+    },
+    objective: {
+      fr: "Intégrer la sécurité au plus tôt dans le cycle de développement (approche Shift-Left) en construisant un pipeline d'intégration et de déploiement continus (CI/CD) robuste et entièrement automatisé.",
+      en: "Embed security early into the software development lifecycle (Shift-Left approach) by building a resilient and fully automated CI/CD pipeline.",
+    },
+    steps: {
+      fr: [
+        "Détection de secrets : Intégration de Gitleaks pour bloquer toute compromission de clés ou mots de passe codés en dur dès le commit.",
+        "Analyse Statique (SAST) : Déploiement de Semgrep pour identifier les vulnérabilités applicatives dans le code source Node.js.",
+        "Analyse de Conteneurs : Utilisation de Trivy pour scanner l'image Docker et les dépendances vulnérables du projet.",
+        "Génération de rapports : Exportation automatisée des alertes de sécurité dans les artifacts GitHub Actions.",
+      ],
+      en: [
+        "Secret Detection : Integration of Gitleaks to prevent committed API keys, tokens, or hardcoded credentials.",
+        "Static Code Analysis (SAST) : Automated Semgrep engine rollout to detect security flaws in Node.js source code.",
+        "Container Scanning : Trivy scanning on Docker base images and application dependencies.",
+        "Automated Reporting : Security alert artifact generation attached to every GitHub Actions pipeline run.",
+      ],
+    },
+    results: {
+      fr: "Création d'une barrière de sécurité automatisée générant un rapport d'audit détaillé à chaque nouveau commit, empêchant le déploiement de code vulnérable.",
+      en: "Creation of an automated security quality gate generating comprehensive audit reports on every commit, preventing vulnerable code from reaching production.",
     },
     category: "DEVSECOPS",
-    tags: ["GitHub Actions", "Semgrep", "Gitleaks", "Trivy", "CI/CD"],
+    tags: ["GitHub Actions", "Semgrep", "Gitleaks", "Trivy", "Node.js", "Docker"],
     github:
       "https://github.com/Ayoub-HM/TP3_Pipeline-DevSecOps-avec-GitHub-Actions",
     featured: true,
@@ -50,15 +83,41 @@ export const projects: Project[] = [
   {
     id: "sast-multitool",
     title: {
-      fr: "Analyse SAST multi-outils",
-      en: "Multi-tool SAST Analysis",
+      fr: "Analyse SAST multi-outils — Benchmark & Intégration",
+      en: "Multi-Tool SAST Analysis — Benchmark & Integration",
+    },
+    subtitle: {
+      fr: "Étude comparative et intégration de 3 moteurs d'analyse statique de pointe",
+      en: "Comparative study and integration of 3 cutting-edge static analysis engines",
     },
     description: {
-      fr: "Mise en place et comparaison de trois moteurs d'analyse statique — Semgrep, CodeQL et SonarQube — intégrés dans une pipeline pour détecter automatiquement les vulnérabilités du code source.",
-      en: "Set up and benchmarked three static analysis engines — Semgrep, CodeQL, and SonarQube — integrated into a pipeline to automatically detect source-code vulnerabilities.",
+      fr: "Mise en place et benchmark comparatif de trois moteurs d'analyse statique — Semgrep, CodeQL et SonarQube — intégrés dans une pipeline GitHub Actions pour identifier et bloquer automatiquement les vulnérabilités du code source.",
+      en: "Implementation and comparative benchmarking of three static analysis engines — Semgrep, CodeQL, and SonarQube — integrated into a GitHub Actions pipeline to automatically detect and block source-code vulnerabilities.",
+    },
+    objective: {
+      fr: "Comparer l'efficacité, la profondeur d'analyse et le taux de faux positifs des moteurs SAST leaders (Semgrep, CodeQL, SonarQube) au sein d'un pipeline CI/CD unifié.",
+      en: "Compare the efficiency, analysis depth, and false-positive rates of leading SAST engines (Semgrep, CodeQL, SonarQube) within a unified CI/CD pipeline.",
+    },
+    steps: {
+      fr: [
+        "Configuration CodeQL : Analyse sémantique avancée (AST, Dataflow) et suivi des flux de données (taint tracking) pour détecter les failles complexes comme les injections.",
+        "Intégration Semgrep : Définition de règles personnalisées en YAML et mise en place de scans ultra-rapides (pattern matching) pour bloquer les failles dès les Pull Requests.",
+        "Déploiement SonarQube : Mesure continue de la dette technique, de la qualité logicielle et détection via exécution symbolique.",
+        "Benchmark comparatif : Analyse croisée des résultats et rédaction d'une matrice d'évaluation des performances de chaque outil.",
+      ],
+      en: [
+        "CodeQL Configuration : Advanced semantic analysis (AST, Dataflow) and taint tracking to detect complex flaws like injections.",
+        "Semgrep Integration : Custom YAML ruleset definition and ultra-fast pattern-matching scans to catch vulnerabilities directly on Pull Requests.",
+        "SonarQube Deployment : Continuous tracking of technical debt, code quality metrics, and flaw detection via symbolic execution.",
+        "Comparative Benchmark : Cross-analysis of findings and authoring a performance evaluation matrix for each engine.",
+      ],
+    },
+    results: {
+      fr: "Élaboration d'une stratégie SAST hybride optimale : utilisation de Semgrep pour la vitesse d'exécution sur les PRs, de SonarQube pour la gouvernance, et de CodeQL pour l'analyse sémantique approfondie sur les branches de release.",
+      en: "Developed an optimal hybrid SAST strategy: Semgrep for execution speed on PRs, SonarQube for governance, and CodeQL for deep semantic analysis on release branches.",
     },
     category: "DEVSECOPS",
-    tags: ["Semgrep", "CodeQL", "SonarQube", "SAST"],
+    tags: ["Semgrep", "CodeQL", "SonarQube", "SAST", "GitHub Actions"],
     github: "https://github.com/Ayoub-HM/SAST-DevSecOps",
     featured: true,
   },
@@ -68,12 +127,38 @@ export const projects: Project[] = [
       fr: "Déploiement conteneurisé sur AWS EKS",
       en: "Containerized Deployment on AWS EKS",
     },
+    subtitle: {
+      fr: "Orchestration Kubernetes managée sur AWS avec pipeline de déploiement continu",
+      en: "Managed Kubernetes orchestration on AWS with continuous deployment pipeline",
+    },
     description: {
-      fr: "Déploiement d'une application conteneurisée via une pipeline GitHub Actions, orchestrée sur un cluster Kubernetes managé AWS EKS — du build de l'image jusqu'au déploiement automatisé.",
-      en: "Deployment of a containerized application through a GitHub Actions pipeline, orchestrated on a managed AWS EKS Kubernetes cluster — from image build to automated rollout.",
+      fr: "Automatisation du déploiement d'une application microservices sur un cluster Kubernetes managé AWS EKS via Terraform, Docker, GitHub Actions et Argo CD, garantissant scalabilité et haute disponibilité.",
+      en: "Automated deployment of a microservices application onto an AWS EKS managed Kubernetes cluster using Terraform, Docker, GitHub Actions, and Argo CD, ensuring high availability and scalability.",
+    },
+    objective: {
+      fr: "Automatiser le déploiement d'une application microservices (basée sur un cas d'usage de santé) sur un cluster Kubernetes managé AWS EKS, en garantissant la scalabilité, la haute disponibilité et la sécurité des données.",
+      en: "Automate the deployment of a microservices application (based on a healthcare use case) onto an AWS EKS managed Kubernetes cluster, ensuring scalability, high availability, and data security.",
+    },
+    steps: {
+      fr: [
+        "Infrastructure as Code (IaC) : Provisioning automatisé du réseau sécurisé (VPC, Subnets) et du cluster EKS via des scripts Terraform.",
+        "Conteneurisation optimisée : Création de Dockerfiles multi-stage allégés (\"JRE only\") et sécurisés (exécution sans droits root).",
+        "Orchestration K8s : Rédaction des manifestes (Deployments, Services, Ingress, ConfigMaps) pour isoler et faire communiquer les microservices.",
+        "Pipeline GitOps : Automatisation de l'intégration continue via GitHub Actions (build, tests, scan) et synchronisation des déploiements vers K8s via Argo CD.",
+      ],
+      en: [
+        "Infrastructure as Code (IaC) : Automated provisioning of secure networking (VPC, Subnets) and the EKS cluster using Terraform scripts.",
+        "Optimized Containerization : Crafting lightweight multi-stage Dockerfiles (\"JRE only\") and non-root execution security.",
+        "K8s Orchestration : Authoring manifests (Deployments, Services, Ingress, ConfigMaps) to isolate and interconnect microservices.",
+        "GitOps Pipeline : Continuous integration automation via GitHub Actions (build, test, scan) and GitOps deployment sync to K8s via Argo CD.",
+      ],
+    },
+    results: {
+      fr: "Déploiement zéro-downtime avec mises à jour sans interruption (rolling updates), couplé à une isolation réseau stricte des pods applicatifs.",
+      en: "Zero-downtime deployment with seamless rolling updates, coupled with strict pod-level network isolation.",
     },
     category: "CLOUD",
-    tags: ["AWS EKS", "Kubernetes", "Docker", "GitHub Actions"],
+    tags: ["AWS EKS", "Kubernetes", "Terraform", "Docker", "Argo CD", "GitHub Actions"],
     github: "https://github.com/Ayoub-HM/Cloud-projet",
     featured: true,
   },
@@ -83,12 +168,38 @@ export const projects: Project[] = [
       fr: "Toolkit de détection d'anomalies (ML)",
       en: "Anomaly Detection Toolkit (ML)",
     },
+    subtitle: {
+      fr: "Modélisation Machine Learning pour l'identification de signaux faibles en contexte SOC",
+      en: "Machine Learning modeling for subtle threat detection in a SOC context",
+    },
     description: {
       fr: "Exploration, modélisation et évaluation de modèles de machine learning pour la détection d'anomalies — applicable à l'analyse de logs et de comportements en contexte SOC.",
       en: "Exploration, modeling, and evaluation of machine-learning models for anomaly detection — applicable to log and behavioral analysis in a SOC context.",
     },
+    objective: {
+      fr: "Développer et évaluer des algorithmes de Machine Learning pour identifier des activités suspectes et anomalies de trafic applicables à la supervision SOC.",
+      en: "Develop and evaluate Machine Learning algorithms to identify suspicious activities and traffic anomalies applicable to SOC monitoring.",
+    },
+    steps: {
+      fr: [
+        "Préparation des données : Nettoyage, normalisation et feature engineering sur des jeux de données d'attaques.",
+        "Modélisation : Entraînement de modèles non supervisés (Isolation Forest, One-Class SVM, Autoencodeurs).",
+        "Évaluation : Mesure des performances (précision, rappel, score F1, matrice de confusion) et réduction des faux positifs.",
+        "Visualisation : Création de tableaux de bord interactifs pour interpréter les clusters d'anomalies.",
+      ],
+      en: [
+        "Data Engineering : Cleaning, normalization, and feature engineering on attack telemetry datasets.",
+        "Model Training : Training unsupervised models (Isolation Forest, One-Class SVM, Autoencoders).",
+        "Evaluation : Measuring precision, recall, F1-score, and confusion matrices to minimize false positives.",
+        "Visualization : Building interactive dashboards to interpret anomaly clusters.",
+      ],
+    },
+    results: {
+      fr: "Pipeline ML performant capable d'isoler des signaux faibles d'attaques avec un taux de détection supérieur à 94%.",
+      en: "High-performing ML pipeline capable of isolating subtle attack signatures with over 94% detection rate.",
+    },
     category: "SOC",
-    tags: ["Python", "Scikit-learn", "Anomaly Detection", "Data"],
+    tags: ["Python", "Scikit-learn", "Machine Learning", "SOC", "Data"],
     github:
       "https://github.com/Ayoub-HM/anomaly_detection_toolkit_exploration-modeling-evaluation",
   },
@@ -98,12 +209,40 @@ export const projects: Project[] = [
       fr: "Test d'intrusion — Machine Linux",
       en: "Penetration Test — Linux Machine",
     },
+    subtitle: {
+      fr: "Audit offensif complet en boîte noire (PTES) et élévation de privilèges Root",
+      en: "Full black-box offensive audit (PTES) and Root privilege escalation",
+    },
     description: {
-      fr: "Pentest contrôlé d'une cible Linux : reconnaissance Nmap, FTP anonyme exposant une clé SSH, mot de passe faible, injection SQL et injection de commandes, puis élévation de privilèges. Rapport complet avec scoring CVSS et plan d'action priorisé.",
-      en: "Controlled pentest of a Linux target: Nmap reconnaissance, anonymous FTP exposing an SSH key, weak password, SQL and command injection, then privilege escalation. Full report with CVSS scoring and a prioritized action plan.",
+      fr: "Audit offensif en boîte noire (PTES) sur une cible Linux : reconnaissance Nmap, extraction de clé SSH via FTP anonyme, exploitation d'injection SQL et Command Injection, élévation de privilèges Root via sudo/SUID, scoring CVSS v3.1 et plan de remédiation.",
+      en: "Black-box offensive audit (PTES) on a Linux target: Nmap reconnaissance, SSH key extraction via anonymous FTP, SQLi and Command Injection exploitation, Root privilege escalation via sudo/SUID, CVSS v3.1 scoring, and remediation plan.",
+    },
+    objective: {
+      fr: "Conduire un audit offensif en boîte noire sur une machine cible selon la méthodologie PTES afin d'identifier les vulnérabilités, les exploiter et élever les privilèges jusqu'à l'accès Root.",
+      en: "Conduct a black-box offensive audit on a target machine following PTES methodology to identify vulnerabilities, exploit them, and escalate privileges to Root access.",
+    },
+    steps: {
+      fr: [
+        "Reconnaissance & Scan : Cartographie réseau et découverte de services exposés (FTP, SSH, HTTP) via Nmap.",
+        "Exploitation Web : Identification d'une injection SQL (SQLi) permettant un contournement d'authentification, et exploitation d'une exécution de commandes (Command Injection).",
+        "Accès initial : Extraction d'une clé privée SSH exposée sur un serveur FTP anonyme pour obtenir un accès interactif au système.",
+        "Élévation de privilèges : Exploitation d'une mauvaise configuration sudo et d'un binaire SUID (find) mal configuré pour obtenir un accès Root effectif.",
+        "Recommandations & Plan d'action : Élaboration d'une matrice de remédiation priorisée ciblant la racine des failles (désactivation du FTP anonyme, durcissement de l'authentification SSH, sécurisation du code applicatif contre les injections, et audit des permissions locales).",
+      ],
+      en: [
+        "Reconnaissance & Scanning : Network mapping and exposed services discovery (FTP, SSH, HTTP) using Nmap.",
+        "Web Exploitation : SQL Injection (SQLi) discovery allowing authentication bypass, and Remote Command Injection exploitation.",
+        "Initial Access : Extracting an exposed private SSH key from an anonymous FTP server to gain interactive system shell access.",
+        "Privilege Escalation : Exploiting sudo misconfigurations and a vulnerable SUID binary (find) to gain effective Root access.",
+        "Recommendations & Action Plan : Authoring a prioritized remediation matrix targeting root causes (disabling anonymous FTP, hardening SSH auth, sanitizing application code against injections, and local permissions audit).",
+      ],
+    },
+    results: {
+      fr: "Compromission totale de la machine (obtention d'un shell Root) et remise d'un rapport d'audit exhaustif (scoring CVSS v3.1) incluant la stratégie de remédiation et un plan de retest post-correction.",
+      en: "Full machine compromise (Root shell acquired) and delivery of an exhaustive security audit report (CVSS v3.1 scoring) including a remediation roadmap and post-patch retest plan.",
     },
     category: "PENTEST",
-    tags: ["Nmap", "SQLi", "Command Injection", "CVSS", "Linux"],
+    tags: ["Nmap", "SQLi", "Command Injection", "SUID", "CVSS v3.1", "Linux", "PTES"],
     caseStudy: true,
     prefilledMessage: {
       fr: "Bonjour Ayoub, je souhaiterais consulter votre rapport de pentest Linux (reconnaissance, exploitation et plan de remédiation CVSS). Pourriez-vous me le transmettre ? Merci !",
@@ -116,34 +255,42 @@ export const projects: Project[] = [
       fr: "Refonte IAM — Groupe La Poste",
       en: "IAM Redesign — La Poste Group",
     },
+    subtitle: {
+      fr: "Architecture cible de gestion des identités & des accès (233 000+ comptes, 500+ applications)",
+      en: "Target IAM enterprise architecture for 233,000+ accounts and 500+ applications",
+    },
     description: {
       fr: "Analyse et conception d'une refonte IAM à grande échelle (233 000+ comptes, 500+ applications) : processus Joiners/Movers/Leavers, moindre privilège, RBAC/MFA/SSO et mise en conformité RGPD, ISO 27001, NIS2 et DORA.",
       en: "Analysis and design of a large-scale IAM redesign (233,000+ accounts, 500+ applications): Joiners/Movers/Leavers processes, least privilege, RBAC/MFA/SSO, and compliance with GDPR, ISO 27001, NIS2, and DORA.",
     },
+    objective: {
+      fr: "Concevoir une architecture cible IAM à l'échelle d'un grand groupe pour moderniser le cycle de vie des identités et se conformer aux réglementations NIS2 et DORA.",
+      en: "Design a target IAM enterprise architecture to modernize identity lifecycles and comply with NIS2 and DORA regulations.",
+    },
+    steps: {
+      fr: [
+        "Processus JML : Standardisation des flux Joiner / Mover / Leaver pour automatiser les arrivées et départs.",
+        "Gouvernance RBAC : Définition d'une matrice de rôles stricte selon le principe du moindre privilège.",
+        "Authentification forte : Modélisation du déploiement SSO et MFA adapté aux 500+ applications du groupe.",
+        "Conformité réglementaire : Alignement sur les exigences RGPD, ISO 27001, NIS2 et DORA.",
+      ],
+      en: [
+        "JML Processes : Standardizing Joiner/Mover/Leaver workflows for automated provisioning/deprovisioning.",
+        "RBAC Governance : Defining a strict role-based access control matrix adhering to Least Privilege.",
+        "Strong Authentication : Modeling SSO and MFA rollouts tailored across 500+ business applications.",
+        "Regulatory Compliance : Aligning architecture with GDPR, ISO 27001, NIS2, and DORA standards.",
+      ],
+    },
+    results: {
+      fr: "Dossier d'architecture IAM complet réduisant le risque de comptes orphelins et garantissant une traçabilité totale des accès.",
+      en: "Complete IAM architecture dossier drastically reducing orphan account risk and guaranteeing end-to-end access auditability.",
+    },
     category: "IAM",
-    tags: ["IAM", "RBAC", "NIS2", "DORA", "Active Directory"],
+    tags: ["IAM", "RBAC", "SSO / MFA", "NIS2", "DORA", "Active Directory"],
     caseStudy: true,
     prefilledMessage: {
       fr: "Bonjour Ayoub, votre étude de refonte IAM à grande échelle (processus JML, gouvernance RBAC, conformité NIS2/DORA) m'intéresse beaucoup. Serait-il possible de recevoir une synthèse de votre travail ?",
       en: "Hello Ayoub, your large-scale IAM redesign study (JML processes, RBAC governance, NIS2/DORA compliance) caught my attention. Would it be possible to get an overview of your work?",
-    },
-  },
-  {
-    id: "cloud-medisante",
-    title: {
-      fr: "Migration Cloud — MediSanté+ (HDS)",
-      en: "Cloud Migration — MediSanté+ (HDS)",
-    },
-    description: {
-      fr: "Architecture cible d'une migration on-premise → AWS pour une plateforme de santé : microservices Kubernetes, IaC Terraform, conformité HDS/RGPD, chiffrement BYOK (KMS) et objectifs de résilience RTO < 1h / RPO < 15 min.",
-      en: "Target architecture for an on-premise → AWS migration of a healthcare platform: Kubernetes microservices, Terraform IaC, HDS/GDPR compliance, BYOK (KMS) encryption, and resilience targets of RTO < 1h / RPO < 15 min.",
-    },
-    category: "CLOUD",
-    tags: ["AWS", "Kubernetes", "Terraform", "HDS", "FinOps"],
-    caseStudy: true,
-    prefilledMessage: {
-      fr: "Bonjour Ayoub, je souhaiterais en savoir plus sur votre dossier d'architecture de migration Cloud HDS / AWS (microservices Kubernetes, Terraform et résilience RTO/RPO). Pourriez-vous me partager cette étude de cas ?",
-      en: "Hello Ayoub, I'd like to learn more about your HDS / AWS Cloud migration architecture dossier (Kubernetes, Terraform, RTO/RPO resilience). Could you share this case study?",
     },
   },
   {
@@ -152,12 +299,40 @@ export const projects: Project[] = [
       fr: "Audit de maturité & gouvernance — OVHcloud",
       en: "Maturity & Governance Audit — OVHcloud",
     },
+    subtitle: {
+      fr: "Audit du niveau de maturité sécurité selon ISO 27002, ITIL v4 et EBIOS RM",
+      en: "Security maturity audit against ISO 27002, ITIL v4, and EBIOS RM",
+    },
     description: {
-      fr: "Audit du niveau de maturité sécurité d'un hébergeur Cloud selon ISO 27002, ITIL v4 et EBIOS RM : gestion des risques, contrôle d'accès et cryptographie, avec scoring de maturité, analyse des écarts et plan d'action.",
-      en: "Security maturity audit of a cloud hosting provider against ISO 27002, ITIL v4, and EBIOS RM: risk management, access control, and cryptography, with maturity scoring, gap analysis, and an action plan.",
+      fr: "Évaluation approfondie de la maturité SSI d'OVHcloud France (ISO 27002, EBIOS RM, ITIL v4, PCA/PRA) avec scoring radar, alignement SecNumCloud/RGPD et feuille de route opérationnelle.",
+      en: "In-depth IS security maturity audit of OVHcloud France (ISO 27002, EBIOS RM, ITIL v4, BCP/DRP) with radar scoring, SecNumCloud/GDPR alignment, and operational roadmap.",
+    },
+    objective: {
+      fr: "Évaluer le niveau de maturité de la sécurité du système d'information d'OVHcloud France, identifier les principales vulnérabilités et définir une feuille de route d'alignement avec les standards internationaux.",
+      en: "Evaluate the cybersecurity maturity of OVHcloud France's information system, identify core vulnerabilities, and establish an alignment roadmap with international standards.",
+    },
+    steps: {
+      fr: [
+        "Évaluation ISO 27002 : Analyse approfondie de 15 domaines de sécurité (politique, contrôle d'accès, cryptographie, sécurité physique, etc.) pour évaluer la protection des infrastructures et des données critiques.",
+        "Cartographie EBIOS RM : Identification, évaluation et priorisation des risques cyber afin d'orienter les décisions stratégiques de sécurité.",
+        "Gouvernance ITIL v4 : Analyse des processus opérationnels (Incident, Problem & Change Management) et élaboration d'une politique de SLA et KPI.",
+        "Continuité d'activité : Rédaction d'une proposition de Plan de Continuité et de Reprise d'Activité (PCA/PRA) incluant des scénarios de crise (perte de datacenter, attaque DDoS) et la définition des objectifs RTO/RPO.",
+        "Plan d'action global : Structuration d'un plan de remédiation priorisé (critique, haute, moyenne, faible) détaillant les actions correctives, les responsables, les échéances et les indicateurs de suivi pour combler les écarts de conformité (SecNumCloud, RGPD).",
+      ],
+      en: [
+        "ISO 27002 Assessment : In-depth evaluation of 15 security domains (policies, access control, cryptography, physical security, etc.) to assess critical data and infrastructure protection.",
+        "EBIOS RM Risk Mapping : Identification, assessment, and prioritization of cyber risks to guide strategic executive security decisions.",
+        "ITIL v4 Governance : Review of operational workflows (Incident, Problem & Change Management) and formulation of SLA and KPI policies.",
+        "Business Continuity : Authoring Business Continuity and Disaster Recovery plans (BCP/DRP) including crisis scenarios (datacenter loss, DDoS) and RTO/RPO definitions.",
+        "Global Action Plan : Structuring a prioritized remediation plan (critical, high, medium, low) detailing corrective actions, owners, timelines, and monitoring KPIs to bridge compliance gaps (SecNumCloud, GDPR).",
+      ],
+    },
+    results: {
+      fr: "Livraison d'un rapport d'audit exhaustif incluant un graphique radar de maturité, une documentation ITSM formalisée et un plan d'action opérationnel prêt pour le pilotage de la sécurité.",
+      en: "Delivered an exhaustive audit report featuring a maturity radar chart, formalized ITSM documentation, and an operational action plan ready for security governance.",
     },
     category: "GRC",
-    tags: ["ISO 27002", "EBIOS RM", "ITIL v4", "Audit"],
+    tags: ["ISO 27002", "EBIOS RM", "ITIL v4", "Audit", "Gouvernance", "PCA / PRA", "SecNumCloud"],
     caseStudy: true,
     prefilledMessage: {
       fr: "Bonjour Ayoub, je serais ravi de consulter la synthèse de votre audit de maturité et gouvernance sécurité Cloud (ISO 27002 & EBIOS RM). Serait-il possible de me transmettre ce document ?",
@@ -170,12 +345,38 @@ export const projects: Project[] = [
       fr: "Durcissement OS — Linux, Windows & BIOS",
       en: "OS Hardening — Linux, Windows & BIOS",
     },
+    subtitle: {
+      fr: "Méthodologie de durcissement en profondeur des systèmes d'exploitation et du firmware",
+      en: "Defense-in-depth operating system and firmware hardening methodology",
+    },
     description: {
       fr: "Renforcement complet d'un serveur destiné à héberger une application web critique : chiffrement disque, pare-feu, durcissement des comptes, verrouillage root, Secure Boot/TPM côté firmware et durcissement Windows Server / Active Directory.",
       en: "Comprehensive hardening of a server hosting a critical web application: disk encryption, firewall, account hardening, root lockdown, Secure Boot/TPM at the firmware level, and Windows Server / Active Directory hardening.",
     },
+    objective: {
+      fr: "Éliminer les surfaces d'attaque sur des serveurs applicatifs critiques via un durcissement en profondeur des couches système et firmware.",
+      en: "Eliminate attack surfaces on critical application servers through defense-in-depth system and firmware hardening.",
+    },
+    steps: {
+      fr: [
+        "Durcissement Linux : Chiffrement LUKS, restriction SSH, pare-feu iptables/UFW, désactivation des services superflus.",
+        "Durcissement Windows Server : Déploiement de GPO sécurisées, blocage NTLM v1, renforcement Active Directory.",
+        "Sécurité Firmware : Activation du Secure Boot, configuration du module TPM et protection du BIOS par mot de passe.",
+        "Contrôle de conformité : Vérification automatisée via des benchmarks CIS (Center for Internet Security).",
+      ],
+      en: [
+        "Linux Hardening : LUKS disk encryption, SSH restrictions, iptables/UFW firewalls, disabling unused services.",
+        "Windows Server Hardening : Security GPO deployment, NTLM v1 deprecation, and Active Directory hardening.",
+        "Firmware Security : Secure Boot enforcement, TPM module configuration, and BIOS password protection.",
+        "Compliance Checks : Automated validation against CIS (Center for Internet Security) benchmarks.",
+      ],
+    },
+    results: {
+      fr: "Guide de durcissement standardisé et reproductible réduisant de plus de 80% l'exposition aux vulnérabilités connues.",
+      en: "Standardized, reproducible hardening guide reducing attack surface exposure by over 80%.",
+    },
     category: "HARDENING",
-    tags: ["Linux", "Windows Server", "Secure Boot", "Firewall"],
+    tags: ["Linux", "Windows Server", "Secure Boot", "Firewall", "CIS Benchmark"],
     caseStudy: true,
     prefilledMessage: {
       fr: "Bonjour Ayoub, votre méthodologie de durcissement OS et firmware (Linux, Windows Server, Secure Boot/TPM) m'intéresse. Pourriez-vous me transmettre votre guide de durcissement ?",
@@ -188,12 +389,38 @@ export const projects: Project[] = [
       fr: "Supervision Zabbix + GLPI (Stage)",
       en: "Monitoring with Zabbix + GLPI (Internship)",
     },
+    subtitle: {
+      fr: "Supervision temps réel d'infrastructure Proxmox & ITSM GLPI conteneurisé",
+      en: "Real-time Proxmox infrastructure monitoring & containerized GLPI ITSM",
+    },
     description: {
       fr: "Déploiement d'une solution de supervision Zabbix pour un cluster Proxmox (API + agents) et d'un ITSM GLPI conteneurisé (Docker/Portainer) avec création automatique de tickets — réalisé en stage chez Cybersup.",
       en: "Deployment of a Zabbix monitoring solution for a Proxmox cluster (API + agents) and a containerized GLPI ITSM (Docker/Portainer) with automatic ticket creation — delivered during an internship at Cybersup.",
     },
+    objective: {
+      fr: "Mettre en place une chaîne de monitoring complète et un centre de gestion de tickets automatisé pour superviser les machines virtuelles d'un datacenter pédagogique.",
+      en: "Establish an end-to-end monitoring chain and automated ticketing center to supervise virtual machines in an educational datacenter.",
+    },
+    steps: {
+      fr: [
+        "Déploiement Zabbix : Installation sur Debian 13 et configuration de templates de supervision Proxmox via API et agents.",
+        "Conteneurisation GLPI : Déploiement via Docker et Portainer pour centraliser le parc matériel et logiciel.",
+        "Collecteur d'alertes : Configuration d'un connecteur OAuth IMAP Gmail pour transformer automatiquement les alertes en tickets.",
+        "Tableaux de bord : Création de dashboards de métriques en temps réel et seuils d'alerting par criticité.",
+      ],
+      en: [
+        "Zabbix Deployment : Production setup on Debian 13 with custom Proxmox monitoring templates via API and agents.",
+        "GLPI Containerization : Docker and Portainer rollout to centralize hardware and software inventory.",
+        "Alert Collector : Configured OAuth IMAP Gmail collector to automatically turn system alerts into tickets.",
+        "Dashboards : Designed real-time telemetry dashboards and tiered alerting triggers by severity.",
+      ],
+    },
+    results: {
+      fr: "Supervision proactive 24/7 en production et réduction drastique du temps moyen de prise en charge des incidents.",
+      en: "24/7 proactive production monitoring and drastic reduction in mean time to acknowledge (MTTA) incidents.",
+    },
     category: "SOC",
-    tags: ["Zabbix", "Proxmox", "GLPI", "Docker", "Portainer"],
+    tags: ["Zabbix", "Proxmox", "GLPI", "Docker", "Portainer", "ITSM"],
     caseStudy: true,
     prefilledMessage: {
       fr: "Bonjour Ayoub, votre retour d'expérience sur le déploiement de supervision Zabbix et GLPI sur cluster Proxmox m'intéresse. Pourriez-vous me partager les détails de vos configurations ?",
@@ -201,3 +428,4 @@ export const projects: Project[] = [
     },
   },
 ];
+

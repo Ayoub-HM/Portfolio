@@ -31,13 +31,13 @@ export const experiences: Experience[] = [
       fr: [
         "Supervision (Zabbix) : Réalisation d'une étude comparative de solutions open source (Grafana, Prometheus, InfluxDB, Checkmk). Après validation en local, déploiement de Zabbix en production sur Debian 13 pour superviser des machines virtuelles sous Proxmox (via API et agents).",
         "Gestion de Parc (GLPI) : Déploiement de GLPI via Docker et Portainer pour centraliser l'inventaire matériel. Configuration d'un collecteur de mails (OAuth IMAP Gmail) pour automatiser la création de tickets d'assistance.",
-        "Sensibilisation : Animation d'ateliers sur la plateforme Cyberpark pour initier un public jeune aux bonnes pratiques de cybersécurité (phishing, protection des données).",
+        "Sensibilisation : Animation d'ateliers d'initiation aux bonnes pratiques de cybersécurité (phishing, protection des données) auprès d'un public jeune, en partenariat avec La Plateforme (programme Cyberpark).",
         "Documentation technique : Rédaction des procédures d'installation, de configuration et de sauvegarde pour assurer la maintenance des solutions mises en place.",
       ],
       en: [
         "Monitoring (Zabbix) : Conducted a benchmark study of open-source solutions (Grafana, Prometheus, InfluxDB, Checkmk). Following local validation, deployed Zabbix into production on Debian 13 to monitor Proxmox virtual machines (via API and agents).",
         "IT Asset Management (GLPI) : Deployed GLPI using Docker and Portainer to centralize hardware and software inventory. Configured an automated mail collector (OAuth IMAP Gmail) for seamless helpdesk ticketing.",
-        "Cybersecurity Awareness : Led interactive workshops on the Cyberpark platform to train young audiences on digital hygiene best practices (phishing prevention, personal data protection).",
+        "Cybersecurity Awareness : Led introductory workshops on cybersecurity best practices (phishing prevention, data protection) for young audiences, in partnership with La Plateforme (Cyberpark initiative).",
         "Technical Documentation : Authored comprehensive installation, configuration, and backup standard operating procedures (SOPs) to ensure long-term system maintainability.",
       ],
     },
@@ -59,7 +59,7 @@ export const experiences: Experience[] = [
       fr: "CDI — Administrateur Systèmes, Réseaux & Sécurité",
       en: "Permanent — Systems, Networks & Security Administrator",
     },
-    company: "AttijariwafaBank",
+    company: "Attijariwafa Bank",
     location: { fr: "Casablanca, Maroc", en: "Casablanca, Morocco" },
     period: { fr: "Avr. 2024 — Août 2025", en: "Apr. 2024 — Aug. 2025" },
     description: {
@@ -70,16 +70,16 @@ export const experiences: Experience[] = [
       fr: [
         "Administration Systèmes & Réseaux : Pilotage et maintenance de l'infrastructure serveurs (Windows Server, Linux) et du matériel réseau, garantissant la stabilité du cœur de réseau bancaire.",
         "Gestion des Identités et des Accès (IAM) : Administration centralisée des comptes, des habilitations et durcissement des politiques de sécurité via Active Directory et le déploiement de GPO.",
-        "Supervision Proactive : Monitoring en temps réel de la disponibilité, des performances et des alertes de sécurité du SI à l'aide des plateformes Dynatrace et SolarWinds.",
-        "Patch Management & Résilience : Déploiement rigoureux des correctifs systèmes et des patchs de sécurité. Pilotage du cycle de vie des données critiques (sauvegardes, contrôle d'intégrité et tests réguliers de restauration).",
+        "Supervision : Monitoring en temps réel de la disponibilité et des performances du SI à l'aide des plateformes Dynatrace et SolarWinds.",
+        "Patch Management & Résilience : Déploiement des correctifs systèmes et des patchs de sécurité. Pilotage du cycle de vie des données critiques (sauvegardes, contrôle d'intégrité et tests réguliers de restauration).",
         "Bases de Données : Administration et interrogation des bases de données relationnelles via des requêtes SQL pour répondre aux besoins d'exploitation.",
         "Projets & Évolutions : Contribution active aux projets de modernisation de l'infrastructure (migrations, déploiements, et mises en production de nouveaux services).",
       ],
       en: [
         "Systems & Networks Administration : Operating and maintaining enterprise server fleets (Windows Server, Linux) and network appliances, guaranteeing high availability across the core banking backbone.",
         "Identity & Access Management (IAM) : Centralized user account administration, granular permission management, and security policy hardening via Active Directory and GPO rollouts.",
-        "Proactive Monitoring : Real-time monitoring of service availability, performance telemetry, and security alerts using Dynatrace and SolarWinds platforms.",
-        "Patch Management & Resilience : Rigorous deployment of OS updates and security hotfixes. Managing critical data lifecycles (backups, integrity verifications, and disaster recovery drills).",
+        "Monitoring : Real-time monitoring of IT infrastructure availability and performance using Dynatrace and SolarWinds platforms.",
+        "Patch Management & Resilience : Deployment of OS updates and security hotfixes. Managing critical data lifecycles (backups, integrity verifications, and disaster recovery drills).",
         "Database Administration : Managing and querying relational database management systems using SQL to support operational requirements.",
         "Projects & Modernization : Active contribution to infrastructure transformation projects (migrations, rollouts, and production deployments of new banking services).",
       ],
@@ -106,7 +106,7 @@ export const experiences: Experience[] = [
     location: { fr: "Maroc", en: "Morocco" },
     period: { fr: "Jan. 2021 — Avr. 2021", en: "Jan. 2021 — Apr. 2021" },
     description: {
-      fr: "Stage de découverte et d'assistance technique. Cette première immersion m'a permis d'observer le fonctionnement d'une infrastructure d'entreprise, de comprendre l'architecture globale d'un Système d'Information (SI) et de me familiariser avec les environnements systèmes et réseaux en conditions réelles.",
+      fr: "Stage de découverte et d'assistance technique. Cette première immersion m'a permis d'observer le fonctionnement d'une infrastructure d'entreprise, de comprendre l'architecture globale d'un Système d'Information et de me familiariser avec les environnements systèmes et réseaux en conditions réelles.",
       en: "Discovery and technical support internship. This initial immersion provided firsthand insight into enterprise infrastructure operations, comprehensive Information System (IS) architectures, and real-world system and network administration.",
     },
     responsibilities: {

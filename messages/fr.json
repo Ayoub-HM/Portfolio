@@ -86,11 +86,15 @@
     "kicker": "Travaux",
     "title": "Projets",
     "subtitle": "Une sélection de projets académiques et professionnels, du pentest à la gouvernance en passant par le Cloud et le DevSecOps.",
-    "viewProject": "Voir le projet",
-    "caseStudy": "Demander le rapport",
+    "viewProject": "Voir le code sur GitHub",
+    "caseStudy": "Demander le rapport / étude de cas",
     "comingSoon": "Bientôt disponible",
     "viewAll": "Voir tous les dépôts GitHub",
-    "filterAll": "Tous"
+    "filterAll": "Tous",
+    "objective": "Objectif du projet",
+    "implementation": "Implémentation & Étapes clés",
+    "results": "Résultats & Livrables",
+    "stack": "Stack Technique"
   },
   "skills": {
     "kicker": "Stack",

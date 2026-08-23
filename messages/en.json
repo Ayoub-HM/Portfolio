@@ -86,11 +86,15 @@
     "kicker": "Work",
     "title": "Projects",
     "subtitle": "A selection of academic and professional projects, from pentesting to governance, including Cloud and DevSecOps.",
-    "viewProject": "View Project",
-    "caseStudy": "Request report",
+    "viewProject": "View code on GitHub",
+    "caseStudy": "Request report / case study",
     "comingSoon": "Coming Soon",
     "viewAll": "View all GitHub repositories",
-    "filterAll": "All"
+    "filterAll": "All",
+    "objective": "Project Objective",
+    "implementation": "Implementation & Key Steps",
+    "results": "Results & Deliverables",
+    "stack": "Technical Stack"
   },
   "skills": {
     "kicker": "Stack",
