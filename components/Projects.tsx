@@ -275,10 +275,10 @@ export function Projects() {
 
                     <div
                       onClick={() => toggleExpand(project.id)}
-                      className={`relative z-10 grid h-9 w-9 place-items-center rounded-full border-2 transition-all cursor-pointer ${
+                      className={`relative z-10 grid h-9 w-9 place-items-center rounded-full border-2 bg-background transition-all cursor-pointer ${
                         isItemExpanded
-                          ? "border-primary bg-primary/20 text-primary shadow-[0_0_14px_rgba(16,185,129,0.5)] scale-110"
-                          : "border-border bg-surface-2 text-muted hover:border-primary/60 hover:text-primary hover:scale-105"
+                          ? "border-primary text-primary shadow-sm dark:shadow-[0_0_14px_rgba(16,185,129,0.4)] scale-110"
+                          : "border-border text-muted hover:border-primary/60 hover:text-primary hover:scale-105"
                       }`}
                       title={isItemExpanded ? "Réduire" : "Développer"}
                     >

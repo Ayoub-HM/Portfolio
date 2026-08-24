@@ -107,16 +107,16 @@ export function HeroVisual() {
         responseNode = (
           <div className="space-y-2 text-[0.72rem]">
             <div>
-              <span className="text-emerald-700 dark:text-sky-300 font-bold">[IAM & PAM] : </span>
-              <span className="text-slate-800 dark:text-slate-200">CyberArk, Keycloak, FreeIPA, Active Directory, MFA, SSO, OAuth2/OIDC, SAML, RBAC/ABAC</span>
+              <span className="text-emerald-700 dark:text-sky-300 font-bold">[IAM] : </span>
+              <span className="text-slate-800 dark:text-slate-200">Keycloak, Active Directory, LDAP, MFA, SSO, OAuth2/OIDC, SAML, RBAC/ABAC</span>
             </div>
             <div>
-              <span className="text-teal-700 dark:text-cyan-300 font-bold">[SOC & Threat] : </span>
-              <span className="text-slate-800 dark:text-slate-200">Wazuh SIEM, Suricata IDS/IPS, MITRE ATT&CK, EDR, Wireshark, Splunk</span>
+              <span className="text-teal-700 dark:text-cyan-300 font-bold">[SOC & Monitoring] : </span>
+              <span className="text-slate-800 dark:text-slate-200">Wazuh SIEM, Zabbix, GLPI, ServiceNow, Suricata IDS/IPS, MITRE ATT&CK</span>
             </div>
             <div>
-              <span className="text-amber-700 dark:text-amber-300 font-bold">[DevSecOps & GRC] : </span>
-              <span className="text-slate-800 dark:text-slate-200">Docker Hardening, GitLab CI, SonarQube, ISO 27001, Linux Hardening, Python/Bash</span>
+              <span className="text-amber-700 dark:text-amber-300 font-bold">[Cloud, DevSecOps & GRC] : </span>
+              <span className="text-slate-800 dark:text-slate-200">AWS EKS, Azure AKS, Docker, GitHub Actions, Semgrep, ISO 27001, Linux Hardening</span>
             </div>
           </div>
         );
@@ -149,9 +149,9 @@ export function HeroVisual() {
             <p className="text-emerald-700 dark:text-sky-300 text-[0.72rem]">
               {locale === "fr" ? "🔍 Audit de conformité & posture de sécurité..." : "🔍 Running security posture audit..."}
             </p>
-            <p className="text-emerald-600 dark:text-emerald-400 text-[0.7rem]">✓ Chiffrement Zero Trust & MFA Enforced</p>
-            <p className="text-emerald-600 dark:text-emerald-400 text-[0.7rem]">✓ Politiques PAM CyberArk & Rotation de Secrets : 100%</p>
-            <p className="text-emerald-600 dark:text-emerald-400 text-[0.7rem]">✓ Surveillance continue SOC & Playbooks SOAR : ACTIFS</p>
+            <p className="text-emerald-600 dark:text-emerald-400 text-[0.7rem]">✓ Chiffrement Zero Trust & MFA Enforced (Keycloak / SSO)</p>
+            <p className="text-emerald-600 dark:text-emerald-400 text-[0.7rem]">✓ Posture Cloud & Conteneurs (EKS/AKS, Docker Hardening) : 100%</p>
+            <p className="text-emerald-600 dark:text-emerald-400 text-[0.7rem]">✓ Surveillance continue SOC (Wazuh & Zabbix) : ACTIFS</p>
             <p className="text-teal-700 dark:text-cyan-300 font-bold text-xs mt-1">Score Global : 98/100 (Système hautement durci)</p>
           </div>
         );

@@ -2,13 +2,17 @@
 
 import { motion } from "framer-motion";
 import {
+  Activity,
   BadgeCheck,
   Boxes,
+  ClipboardList,
   Cloud,
   CloudCog,
   Container,
+  Database,
   FileCode,
   GitBranch,
+  Github,
   Infinity as InfinityIcon,
   KeyRound,
   Layers,
@@ -16,10 +20,14 @@ import {
   Radar,
   ScrollText,
   Server,
+  Shield,
+  ShieldAlert,
   Sparkles,
   SquareTerminal,
   Terminal,
+  Ticket,
   Users,
+  Workflow,
   type LucideIcon,
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
@@ -29,6 +37,7 @@ import {
   techIcons,
   type SkillCategoryKey,
 } from "@/data/skills";
+import { techLogoMap } from "@/components/icons/TechLogos";
 import { CollapsibleSection } from "./ui/CollapsibleSection";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -47,9 +56,16 @@ const iconMap: Record<string, LucideIcon> = {
   boxes: Boxes,
   layers: Layers,
   "git-branch": GitBranch,
+  github: Github,
   "badge-check": BadgeCheck,
-  workflow: InfinityIcon,
+  workflow: Workflow,
   "cloud-cog": CloudCog,
+  activity: Activity,
+  shield: Shield,
+  "shield-alert": ShieldAlert,
+  ticket: Ticket,
+  database: Database,
+  "clipboard-list": ClipboardList,
 };
 
 export function Skills() {
@@ -116,6 +132,7 @@ export function Skills() {
 
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
             {techIcons.map((tech) => {
+              const LogoComp = techLogoMap[tech.name];
               const Icon = iconMap[tech.icon] ?? Terminal;
               return (
                 <motion.div
@@ -123,7 +140,13 @@ export function Skills() {
                   whileHover={{ y: -4, scale: 1.05, transition: { duration: 0.2 } }}
                   className="group/tech flex flex-col items-center gap-2 rounded-xl border border-border/70 bg-surface-2/60 p-3 text-center transition-all duration-200 hover:border-primary/50 hover:bg-surface-2 hover:shadow-md cursor-default"
                 >
-                  <Icon className="h-6 w-6 text-slate-700 dark:text-slate-300 transition-all duration-200 group-hover/tech:text-sky-500 dark:group-hover/tech:text-sky-400 group-hover/tech:scale-110" />
+                  <div className="flex h-7 w-7 items-center justify-center transition-transform duration-200 group-hover/tech:scale-110">
+                    {LogoComp ? (
+                      <LogoComp className="h-6 w-6" />
+                    ) : (
+                      <Icon className="h-6 w-6 text-slate-700 dark:text-slate-300 transition-all duration-200 group-hover/tech:text-sky-500 dark:group-hover/tech:text-sky-400" />
+                    )}
+                  </div>
                   <span className="text-[0.68rem] font-semibold leading-tight text-slate-700 dark:text-slate-300 transition-colors group-hover/tech:text-primary dark:group-hover/tech:text-white">
                     {tech.name}
                   </span>

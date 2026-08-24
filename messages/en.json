@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "Ayoub HAMMOU | Cybersecurity Portfolio",
-    "description": "Portfolio of Ayoub HAMMOU, cybersecurity student and consultant specialized in IAM, PAM, SOC, GRC and DevSecOps.",
-    "keywords": "cybersecurity, IAM, PAM, SOC, GRC, CyberArk, Keycloak, Wazuh, DevSecOps, ISO 27001"
+    "description": "Portfolio of Ayoub HAMMOU, cybersecurity student and engineer specializing in IAM, SOC, GRC, Cloud, and DevSecOps.",
+    "keywords": "cybersecurity, IAM, Keycloak, Active Directory, SOC, Wazuh, Zabbix, Cloud, EKS, AKS, GRC, ISO 27001, DevSecOps, GitHub Actions"
   },
   "nav": {
     "home": "Home",

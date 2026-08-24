@@ -9,6 +9,7 @@ import { education } from "@/data/education";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
 import { CollapsibleSection } from "./ui/CollapsibleSection";
+import { orgLogoMap } from "./icons/OrgLogos";
 
 type FilterType = "all" | "experience" | "education";
 
@@ -247,6 +248,8 @@ export function Experience() {
         <div className="space-y-6 sm:space-y-8">
           {filteredItems.map((item, i) => {
             const isItemExpanded = expandedIds.has(item.id);
+            const orgName = item.type === "experience" ? item.company : item.school;
+            const OrgLogo = orgLogoMap[orgName];
 
             return (
               <Reveal key={item.id} delay={(i % 4) * 0.05}>
@@ -345,10 +348,11 @@ export function Experience() {
 
                         {/* Company / School + Location */}
                         <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm text-muted">
-                          <span className="font-semibold text-primary">
-                            {item.type === "experience"
-                              ? item.company
-                              : item.school}
+                          <span className="inline-flex items-center gap-2 font-semibold text-primary">
+                            {OrgLogo && (
+                              <OrgLogo className="h-5 w-5 rounded-xs shrink-0 shadow-xs" />
+                            )}
+                            <span>{orgName}</span>
                           </span>
                           {item.location && (
                             <span className="inline-flex items-center gap-1 text-muted">
@@ -359,34 +363,43 @@ export function Experience() {
                         </div>
                       </div>
 
-                      {/* Expand / Collapse Chevron Button */}
-                      <div
-                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 mt-1 ${
-                          isItemExpanded
-                            ? "border-primary/60 bg-primary/20 text-primary shadow-[0_0_12px_rgba(56,189,248,0.25)]"
-                            : "border-border/80 bg-surface-2 text-muted group-hover:border-primary/50 group-hover:text-primary group-hover:bg-primary/10"
-                        }`}
-                        title={
-                          isItemExpanded
-                            ? locale === "fr"
-                              ? "Masquer les détails"
-                              : "Hide details"
-                            : locale === "fr"
-                            ? "Afficher les détails"
-                            : "Show details"
-                        }
-                      >
-                        <motion.div
-                          animate={{ rotate: isItemExpanded ? 180 : 0 }}
+                      {/* Right side: Full Brand Logo Badge + Expand Chevron */}
+                      <div className="flex items-center gap-3 shrink-0 mt-0.5">
+                        {OrgLogo && (
+                          <div className="hidden sm:flex items-center justify-center rounded-xl bg-white/95 dark:bg-transparent border border-border/80 dark:border-border/40 px-3 py-1.5 shadow-sm shrink-0 min-h-[48px] min-w-[70px]">
+                            <OrgLogo className="h-8 sm:h-10 w-auto max-w-[140px] object-contain drop-shadow-sm" />
+                          </div>
+                        )}
+
+                        {/* Expand / Collapse Chevron Button */}
+                        <div
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 mt-1 ${
+                            isItemExpanded
+                              ? "border-primary/60 bg-primary/20 text-primary shadow-[0_0_12px_rgba(56,189,248,0.25)]"
+                              : "border-border/80 bg-surface-2 text-muted group-hover:border-primary/50 group-hover:text-primary group-hover:bg-primary/10"
+                          }`}
+                          title={
+                            isItemExpanded
+                              ? locale === "fr"
+                                ? "Masquer les détails"
+                                : "Hide details"
+                              : locale === "fr"
+                              ? "Afficher les détails"
+                              : "Show details"
+                          }
+                        >
+                          <motion.div
+                            animate={{ rotate: isItemExpanded ? 180 : 0 }}
                           transition={{ type: "spring", stiffness: 320, damping: 22 }}
                         >
                           <ChevronDown className="h-4 w-4" />
                         </motion.div>
                       </div>
                     </div>
+                  </div>
 
-                    {/* Expandable Details Section */}
-                    <AnimatePresence initial={false}>
+                  {/* Expandable Details Section */}
+                  <AnimatePresence initial={false}>
                       {isItemExpanded && (
                         <motion.div
                           initial={{ opacity: 0, height: 0 }}
