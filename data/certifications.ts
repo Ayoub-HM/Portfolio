@@ -35,4 +35,13 @@ export const certifications: Certification[] = [
     status: "in-progress",
     logo: "/images/certs/comptia-cysa.svg",
   },
+  {
+    id: "efrei-hacklab",
+    name: "HackLab : la quête du FlipperZero",
+    issuer: "EFREI - Grande école du numérique",
+    status: "obtained",
+    logo: "/images/logos/efrei_clean.png",
+    url: "https://app.prosoon.eu/shared/piCd7XJ29pCdDPoXGMrh1k4Crg7pRRtb",
+    year: "2026",
+  },
 ];
