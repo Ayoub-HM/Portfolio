@@ -25,7 +25,7 @@ export const stats: { id: keyof StatLabels; value: string }[] = [
   { id: "projects", value: "10+" },
   { id: "labHours", value: "300+" }, // TODO: set your real cumulative lab hours
   { id: "tools", value: "40+" },
-  { id: "certifications", value: "3" },
+  { id: "certifications", value: "4" },
 ];
 
 type StatLabels = {
