@@ -98,6 +98,9 @@ export function Hero() {
               >
                 {m.hero.name}
               </motion.h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                this is a test of connectivity
+              </p>
 
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
