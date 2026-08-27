@@ -12,7 +12,7 @@ export const profile = {
   github: "https://github.com/Ayoub-HM",
   linkedin: "https://www.linkedin.com/in/ayoub-hammou/",
   // Place your CV PDF in /public/cv/ to make the "Download CV" button work.
-  cvPath: "/cv/Ayoub-HAMMOU-CV.pdf",
+  cvPath: "/cv/CV_Ayoub HAMMOU.pdf",
   avatar: "/images/portrait.jpg",
 } as const;
 
