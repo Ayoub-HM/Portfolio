@@ -72,42 +72,24 @@ export function Contact() {
     const message = formData.get("message") as string;
 
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-      if (!serviceId || !templateId || !publicKey ||
-          serviceId === "YOUR_SERVICE_ID" ||
-          templateId === "YOUR_TEMPLATE_ID" ||
-          publicKey === "YOUR_PUBLIC_KEY") {
-        // Mode démonstration / sans API Keys
-        // On simule l'envoi réussi au lieu d'ouvrir Outlook (demande de l'utilisateur)
-        console.log("EmailJS n'est pas configuré. Simulation d'envoi.");
-        setStatus("sent");
-        setMessageText("");
-        form.reset();
-        setTimeout(() => setStatus("idle"), 4000);
-        return;
-      }
-
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: name,
-          from_email: email,
-          message: message,
-          to_email: "ayoubhammou77@gmail.com",
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        publicKey
-      );
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur d'envoi");
+      }
 
       setStatus("sent");
       setMessageText("");
       form.reset();
       setTimeout(() => setStatus("idle"), 4000);
     } catch (error) {
-      console.error("EmailJS Error:", error);
+      console.error("API Error:", error);
       setStatus("error");
       setTimeout(() => setStatus("idle"), 5000);
     }
