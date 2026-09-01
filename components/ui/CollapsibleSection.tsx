@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
@@ -27,6 +27,7 @@ export function CollapsibleSection({
 }: CollapsibleSectionProps) {
   const { locale } = useI18n();
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const isSelfToggling = useRef(false);
 
   useEffect(() => {
     // Open if currently matching URL hash
@@ -44,6 +45,12 @@ export function CollapsibleSection({
     const handleOpenSection = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
       const target = customEvent.detail;
+
+      // Skip if this event was dispatched by our own toggle handler
+      if (isSelfToggling.current) {
+        isSelfToggling.current = false;
+        return;
+      }
 
       if (target === "all-open") {
         setIsOpen(true);
@@ -68,6 +75,8 @@ export function CollapsibleSection({
     if (isOpen) {
       setIsOpen(false);
     } else {
+      // Set flag so our own listener skips this event
+      isSelfToggling.current = true;
       // Broadcast opening this section to trigger Exclusive Focus (closing other open sections)
       window.dispatchEvent(new CustomEvent("open-section", { detail: id }));
       setIsOpen(true);

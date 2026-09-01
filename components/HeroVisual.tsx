@@ -295,7 +295,6 @@ export function HeroVisual() {
               onChange={(e) => setInput(e.target.value)}
               placeholder={locale === "fr" ? "Tapez une commande..." : "Type a command..."}
               className="w-full bg-transparent font-mono text-xs text-foreground dark:text-white placeholder:text-muted/60 dark:placeholder:text-slate-500 focus:outline-none pr-2"
-              autoFocus
             />
             {/* Blinking terminal cursor */}
             <span

@@ -153,12 +153,12 @@
       "name": "Nom",
       "namePlaceholder": "Votre nom",
       "email": "Email",
-      "emailPlaceholder": "vous@exemple.com",
+      "emailPlaceholder": "Votre email",
       "message": "Message",
       "messagePlaceholder": "Votre message…",
-      "send": "Envoyer le message",
-      "sent": "Message envoyé ✓",
-      "note": "Ce formulaire est une démonstration d'interface (sans backend pour le moment)."
+      "send": "Envoyer",
+      "sent": "Votre message a été envoyé",
+      "note": ""
     }
   },
   "interests": {

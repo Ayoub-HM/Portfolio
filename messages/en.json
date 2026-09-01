@@ -153,12 +153,12 @@
       "name": "Name",
       "namePlaceholder": "Your name",
       "email": "Email",
-      "emailPlaceholder": "you@example.com",
+      "emailPlaceholder": "Your email",
       "message": "Message",
       "messagePlaceholder": "Your message…",
-      "send": "Send Message",
-      "sent": "Message sent ✓",
-      "note": "This form is a UI demonstration (no backend for now)."
+      "send": "Send",
+      "sent": "Your message has been sent",
+      "note": ""
     }
   },
   "interests": {

@@ -22,7 +22,7 @@ export const languages: LanguageItem[] = [
     id: "fr",
     name: { fr: "Français", en: "French" },
     level: { fr: "Courant / Bilingue", en: "Fluent / Bilingual" },
-    badge: "C2",
+    badge: "C1",
     detail: {
       fr: "Aisance rédactionnelle, animation de réunions et vulgarisation technique.",
       en: "Strong editorial skills, meeting leadership, and technical communication.",

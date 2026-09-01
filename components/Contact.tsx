@@ -2,16 +2,18 @@
 
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import {
+  AlertCircle,
   Check,
   Copy,
   ExternalLink,
   Github,
   Linkedin,
+  Loader2,
   Mail,
   MapPin,
   Phone,
-  Radio,
   Send,
   Sparkles,
   type LucideIcon,
@@ -20,14 +22,17 @@ import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
 import { CollapsibleSection } from "./ui/CollapsibleSection";
 
+type FormStatus = "idle" | "sending" | "sent" | "error";
+
 export function Contact() {
   const { locale, m } = useI18n();
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<FormStatus>("idle");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [messageText, setMessageText] = useState("");
   const [isPrefilled, setIsPrefilled] = useState(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const handlePrefill = (e: Event) => {
@@ -54,12 +59,58 @@ export function Contact() {
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
-    setMessageText("");
-    e.currentTarget.reset();
-    setTimeout(() => setSent(false), 4000);
+    if (status === "sending") return;
+
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    try {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey ||
+          serviceId === "YOUR_SERVICE_ID" ||
+          templateId === "YOUR_TEMPLATE_ID" ||
+          publicKey === "YOUR_PUBLIC_KEY") {
+        // Mode démonstration / sans API Keys
+        // On simule l'envoi réussi au lieu d'ouvrir Outlook (demande de l'utilisateur)
+        console.log("EmailJS n'est pas configuré. Simulation d'envoi.");
+        setStatus("sent");
+        setMessageText("");
+        form.reset();
+        setTimeout(() => setStatus("idle"), 4000);
+        return;
+      }
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: name,
+          from_email: email,
+          message: message,
+          to_email: "ayoubhammou77@gmail.com",
+        },
+        publicKey
+      );
+
+      setStatus("sent");
+      setMessageText("");
+      form.reset();
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   const links: {
@@ -186,9 +237,10 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Right: Contact Form */}
+          {/* Right: Contact Form with EmailJS */}
           <div>
             <form
+            ref={formRef}
             onSubmit={handleSubmit}
             className="glass-card flex flex-col gap-4 p-6 sm:p-8 relative overflow-hidden"
           >
@@ -266,18 +318,36 @@ export function Contact() {
               />
             </div>
 
+            {/* Submit Button with Loading / Success / Error States */}
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={`inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-mono text-sm font-bold text-white shadow-glow transition-all cursor-pointer ${
-                sent ? "bg-emerald-500 text-slate-950" : "bg-primary hover:bg-sky-400"
+              disabled={status === "sending"}
+              whileHover={status === "idle" ? { scale: 1.02 } : {}}
+              whileTap={status === "idle" ? { scale: 0.98 } : {}}
+              className={`inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-mono text-sm font-bold text-white shadow-glow transition-all cursor-pointer disabled:cursor-wait ${
+                status === "sent"
+                  ? "bg-emerald-500 text-slate-950"
+                  : status === "error"
+                  ? "bg-danger"
+                  : status === "sending"
+                  ? "bg-primary/70"
+                  : "bg-primary hover:bg-sky-400"
               }`}
             >
-              {sent ? (
+              {status === "sending" ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>{locale === "fr" ? "Envoi en cours..." : "Sending..."}</span>
+                </>
+              ) : status === "sent" ? (
                 <>
                   <Sparkles className="h-4 w-4" />
                   <span>{m.contact.form.sent}</span>
+                </>
+              ) : status === "error" ? (
+                <>
+                  <AlertCircle className="h-4 w-4" />
+                  <span>{locale === "fr" ? "Erreur — Réessayer" : "Error — Retry"}</span>
                 </>
               ) : (
                 <>
@@ -286,6 +356,19 @@ export function Contact() {
                 </>
               )}
             </motion.button>
+
+            {/* Status feedback message */}
+            {status === "error" && (
+              <motion.p
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center text-xs text-danger font-medium"
+              >
+                {locale === "fr"
+                  ? "L'envoi a échoué. Vérifiez votre connexion ou envoyez un email directement."
+                  : "Sending failed. Check your connection or send an email directly."}
+              </motion.p>
+            )}
 
             <p className="text-center text-[0.72rem] text-muted">
               {m.contact.form.note}
