@@ -7,12 +7,14 @@ import { Interests } from "@/components/Interests";
 import { Experience } from "@/components/Experience";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { MatrixRain } from "@/components/MatrixRain";
 
 import { SectionControls } from "@/components/ui/SectionControls";
 
 export default function Home() {
   return (
     <>
+      <MatrixRain />
       <Navbar />
       <main>
         <Hero />

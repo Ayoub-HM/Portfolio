@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Code2, Github, Linkedin, Menu, X, ZoomIn } from "lucide-react";
+import { Code2, Github, Linkedin, Menu, X } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
-import { ProfileModal } from "./ProfileModal";
 
 type NavKey =
   | "home"
@@ -33,7 +32,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("hero");
-  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
   // Detect scroll state
   useEffect(() => {
@@ -63,22 +61,30 @@ export function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  const handleLogoClick = (e: React.MouseEvent) => {
-    if (scrolled) {
-      e.preventDefault();
-      setIsPhotoModalOpen(true);
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setOpen(false);
     if (href.startsWith("#")) {
+      e.preventDefault(); // Stop the browser's instant jump
       const sectionId = href.slice(1);
+      
+      // 1. Open the target section
       window.dispatchEvent(
         new CustomEvent("open-section", { detail: sectionId })
       );
+      
+      // 2. Scroll to it smoothly after a tiny delay so the DOM has started expanding
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          // Update the URL hash without jumping
+          window.history.pushState(null, "", href);
+        }
+      }, 150); // 150ms allows Framer Motion to start the height animation
     }
   };
 
@@ -110,7 +116,7 @@ export function Navbar() {
               className={`group relative grid place-items-center rounded-xl border border-primary/40 bg-surface-2 p-0.5 shadow-glow transition-all duration-300 hover:border-primary cursor-pointer overflow-hidden ${
                 scrolled ? "h-9 w-9" : "h-11 w-11"
               }`}
-              title={scrolled ? "Cliquer pour agrandir le portrait" : "Haut de page"}
+              title="Haut de page"
             >
               <AnimatePresence mode="wait">
                 {!scrolled ? (
@@ -145,10 +151,6 @@ export function Navbar() {
                       alt={profile.name}
                       className="h-full w-full object-cover object-top hidden dark:block"
                     />
-                    {/* Hover overlay icon when scrolled */}
-                    <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center backdrop-blur-[0.5px]">
-                      <ZoomIn className="h-4 w-4 text-white drop-shadow" />
-                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -179,7 +181,7 @@ export function Navbar() {
                 <li key={link.key} className="relative py-1">
                   <a
                     href={link.href}
-                    onClick={() => handleNavClick(link.href)}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`inline-block font-mono text-sm font-semibold transition-colors duration-200 hover:text-foreground ${
                       isActive ? "text-foreground" : "text-muted"
                     }`}
@@ -238,7 +240,7 @@ export function Navbar() {
                 <li key={link.key}>
                   <a
                     href={link.href}
-                    onClick={() => handleNavClick(link.href)}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className="block py-3 font-mono text-sm text-muted transition-colors hover:text-foreground"
                   >
                     {m.nav[link.key]}
@@ -269,12 +271,6 @@ export function Navbar() {
           </div>
         )}
       </header>
-
-      {/* Enlarged Photo Modal */}
-      <ProfileModal
-        isOpen={isPhotoModalOpen}
-        onClose={() => setIsPhotoModalOpen(false)}
-      />
     </>
   );
 }

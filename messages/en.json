@@ -34,7 +34,15 @@
     "live": "Live",
     "secured": "System secured",
     "threatLevel": "Threat level",
-    "nominal": "Nominal"
+    "nominal": "Nominal",
+    "tagline": "Cybersecurity · Blue team · DevSecOps",
+    "introShort": "With 3 years of hands-on experience in systems and networks, I combine technical depth (DevSecOps, IAM) with strategy (GRC) to help teams build resilient, compliant and secure environments for the long run.",
+    "durationLabel": "Duration",
+    "durationValue": "12 months · from Sept. 2026",
+    "rhythmLabel": "Pace",
+    "rhythmValue": "2 wks company / 1 wk school",
+    "locationLabel": "Location",
+    "locationValue": "Paris · Île-de-France"
   },
   "stats": {
     "projects": "Projects",

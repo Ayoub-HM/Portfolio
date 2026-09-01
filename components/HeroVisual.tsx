@@ -25,7 +25,7 @@ function TerminalBanner() {
   );
 }
 
-export function HeroVisual() {
+export function HeroVisual({ compact = false }: { compact?: boolean }) {
   const { m, locale } = useI18n();
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<CommandOutput[]>([]);
@@ -230,11 +230,8 @@ export function HeroVisual() {
             <span className="font-semibold text-foreground/90 dark:text-slate-300">ayoub@soc-defense: ~ (zsh)</span>
           </div>
 
-          {/* Right: Colored dots with Maximize action on Green Dot in middle, Red on right */}
+          {/* Right: Green dot = maximize */}
           <div className="flex items-center gap-2">
-            <span className="h-3.5 w-3.5 rounded-full bg-amber-500/80 shadow-sm" title="Réduire" />
-            
-            {/* Green Circle: Maximize / Enlarge button in the middle */}
             <button
               type="button"
               onClick={() => setIsExpanded(true)}
@@ -257,15 +254,13 @@ export function HeroVisual() {
                 <line x1="9" y1="9" x2="6" y2="6" />
               </svg>
             </button>
-
-            <span className="h-3.5 w-3.5 rounded-full bg-rose-500/80 shadow-sm" title="Fermer" />
           </div>
         </div>
 
         {/* Terminal Body */}
         <div
           ref={terminalBodyRef}
-          className="h-64 sm:h-72 overflow-y-auto p-4 space-y-3 font-mono text-xs text-foreground/90 dark:text-slate-200 bg-surface/60 dark:bg-[#090d16] transition-colors duration-300"
+          className={`${compact ? "h-44 sm:h-48" : "h-64 sm:h-72"} overflow-y-auto p-4 space-y-3 font-mono text-xs text-foreground/90 dark:text-slate-200 bg-surface/60 dark:bg-[#090d16] transition-colors duration-300`}
         >
           {/* Custom Header Banner */}
           {showBanner && <TerminalBanner />}
@@ -293,14 +288,22 @@ export function HeroVisual() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={locale === "fr" ? "Tapez une commande..." : "Type a command..."}
-              className="w-full bg-transparent font-mono text-xs text-foreground dark:text-white placeholder:text-muted/60 dark:placeholder:text-slate-500 focus:outline-none pr-2"
+              aria-label={locale === "fr" ? "Tapez une commande" : "Type a command"}
+              className="w-full bg-transparent font-mono text-xs text-foreground dark:text-white caret-transparent focus:outline-none pr-2"
             />
-            {/* Blinking terminal cursor */}
-            <span
-              className="pointer-events-none inline-block h-3.5 w-2 bg-primary dark:bg-sky-400 animate-pulse rounded-xs shadow-[0_0_8px_rgba(5,150,105,0.6)] dark:shadow-[0_0_8px_rgba(56,189,248,0.85)] shrink-0"
+            {/* Blinking terminal cursor, drawn right after the typed text */}
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 right-2 flex items-center overflow-hidden font-mono text-xs"
               aria-hidden="true"
-            />
+            >
+              <span className="invisible whitespace-pre">{input}</span>
+              <span className="inline-block h-3.5 w-2 bg-primary dark:bg-sky-400 animate-pulse rounded-xs shadow-[0_0_8px_rgba(5,150,105,0.6)] dark:shadow-[0_0_8px_rgba(56,189,248,0.85)] shrink-0" />
+              {!input && (
+                <span className="ml-2 truncate text-muted/60 dark:text-slate-500">
+                  {locale === "fr" ? "Tapez une commande..." : "Type a command..."}
+                </span>
+              )}
+            </div>
           </div>
 
           <button
@@ -345,16 +348,7 @@ export function HeroVisual() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      {/* Yellow button (left) */}
-                      <button
-                        type="button"
-                        onClick={() => setIsExpanded(false)}
-                        className="grid h-3.5 w-3.5 place-items-center rounded-full bg-amber-500/90 hover:bg-amber-400 hover:scale-110 transition-all cursor-pointer shadow-sm focus:outline-none"
-                        title="Réduire"
-                        aria-label="Réduire"
-                      />
-
-                      {/* Green button (middle) with 100% symmetric inward arrows */}
+                      {/* Green button with symmetric inward arrows = exit fullscreen */}
                       <button
                         type="button"
                         onClick={() => setIsExpanded(false)}
@@ -375,27 +369,6 @@ export function HeroVisual() {
                           <line x1="1" y1="1" x2="4" y2="4" />
                           <polyline points="6 9 6 6 9 6" />
                           <line x1="9" y1="9" x2="6" y2="6" />
-                        </svg>
-                      </button>
-
-                      {/* Red button with X inside on the right */}
-                      <button
-                        type="button"
-                        onClick={() => setIsExpanded(false)}
-                        className="grid h-3.5 w-3.5 place-items-center rounded-full bg-rose-500 hover:bg-rose-400 hover:scale-110 transition-all cursor-pointer shadow-sm focus:outline-none"
-                        title="Réduire / Fermer la fenêtre"
-                        aria-label="Fermer la fenêtre agrandie"
-                      >
-                        <svg
-                          className="h-2 w-2 text-slate-950"
-                          viewBox="0 0 10 10"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                        >
-                          <line x1="2" y1="2" x2="8" y2="8" />
-                          <line x1="8" y1="2" x2="2" y2="8" />
                         </svg>
                       </button>
                     </div>
@@ -432,15 +405,23 @@ export function HeroVisual() {
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        placeholder={locale === "fr" ? "Tapez une commande..." : "Type a command..."}
-                        className="w-full bg-transparent font-mono text-xs sm:text-sm text-foreground dark:text-white placeholder:text-muted/60 dark:placeholder:text-slate-500 focus:outline-none pr-2"
+                        aria-label={locale === "fr" ? "Tapez une commande" : "Type a command"}
+                        className="w-full bg-transparent font-mono text-xs sm:text-sm text-foreground dark:text-white caret-transparent focus:outline-none pr-2"
                         autoFocus
                       />
-                      {/* Blinking terminal cursor */}
-                      <span
-                        className="pointer-events-none inline-block h-4 w-2.5 bg-primary dark:bg-sky-400 animate-pulse rounded-xs shadow-[0_0_10px_rgba(5,150,105,0.6)] dark:shadow-[0_0_10px_rgba(56,189,248,0.85)] shrink-0"
+                      {/* Blinking terminal cursor, drawn right after the typed text */}
+                      <div
+                        className="pointer-events-none absolute inset-y-0 left-0 right-2 flex items-center overflow-hidden font-mono text-xs sm:text-sm"
                         aria-hidden="true"
-                      />
+                      >
+                        <span className="invisible whitespace-pre">{input}</span>
+                        <span className="inline-block h-4 w-2.5 bg-primary dark:bg-sky-400 animate-pulse rounded-xs shadow-[0_0_10px_rgba(5,150,105,0.6)] dark:shadow-[0_0_10px_rgba(56,189,248,0.85)] shrink-0" />
+                        {!input && (
+                          <span className="ml-2 truncate text-muted/60 dark:text-slate-500">
+                            {locale === "fr" ? "Tapez une commande..." : "Type a command..."}
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <button

@@ -63,12 +63,18 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-6px)" },
         },
+        // Log list is rendered twice; scrolling by half loops seamlessly.
+        "log-scroll": {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-50%)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.6s ease forwards",
         scan: "scan 3.5s linear infinite",
         "pulse-ring": "pulse-ring 2.4s ease-in-out infinite",
         float: "float 5s ease-in-out infinite",
+        "log-scroll": "log-scroll 45s linear infinite",
       },
     },
   },

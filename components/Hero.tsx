@@ -1,16 +1,44 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CalendarDays, Download, Shield, Sparkles, ZoomIn } from "lucide-react";
+import { ArrowRight, Download, Shield } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
 import { HeroVisual } from "./HeroVisual";
-import { ProfileModal } from "./ProfileModal";
+
+// Decorative SOC log feed scrolling behind the portrait.
+const LOG_LINES = [
+  "08:40:02 systemd[1]: Started wazuh-agent.service",
+  "08:40:37 zabbix: agent heartbeat OK — host soc-srv-01",
+  "08:41:15 kernel: nf_conntrack: table usage 12%",
+  "08:41:48 sshd[2219]: Invalid user admin from 10.0.4.17",
+  "08:42:11 sshd[2231]: Failed password for root from 10.0.4.17",
+  "08:42:12 wazuh: rule 5710 fired — sshd: invalid user",
+  "08:42:15 ufw: [BLOCK] IN=eth0 SRC=10.0.4.17 DST=10.0.1.4 DPT=22",
+  "08:43:02 auditd: type=USER_LOGIN acct=\"ayoub\" res=success",
+  "08:43:40 zabbix: trigger resolved — CPU load < 70%",
+  "08:44:05 nginx: 403 GET /wp-admin from 185.220.205.9",
+  "08:44:06 fail2ban: Ban 185.220.205.9",
+  "08:45:19 wazuh: rule 550 — integrity checksum changed",
+  "08:45:20 osquery: file_events /etc/passwd verified",
+  "08:46:33 sshd[2290]: Accepted publickey for ayoub",
+  "08:47:01 cron: (root) CMD (/usr/local/bin/backup-check)",
+  "08:47:58 kube-apiserver: audit — RBAC policy allowed",
+  "08:48:12 suricata: ET SCAN Nmap -sS detected",
+  "08:48:13 wazuh: active-response firewall-drop 10.0.9.44",
+  "08:49:30 keycloak: LOGIN realm=corp user=jdoe mfa=OK",
+  "08:50:02 trivy: image scan passed — 0 CRITICAL",
+];
 
 export function Hero() {
   const { m } = useI18n();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [firstName, ...lastName] = m.hero.name.split(" ");
+
+  const facts = [
+    { label: m.hero.durationLabel, value: m.hero.durationValue },
+    { label: m.hero.rhythmLabel, value: m.hero.rhythmValue },
+    { label: m.hero.locationLabel, value: m.hero.locationValue },
+  ];
 
   return (
     <section
@@ -20,7 +48,7 @@ export function Hero() {
       {/* Ambient background with drifting cyber orbs */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 cyber-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_30%,transparent_75%)] opacity-50" />
-        
+
         {/* Animated Floating Hybrid Cyber Orbs (Cyan + Indigo + Emerald) */}
         <motion.div
           animate={{
@@ -51,94 +79,46 @@ export function Hero() {
         />
       </div>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-8 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:pb-12">
-        {/* Left: copy + portrait */}
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-10 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pb-14">
+        {/* Left: copy */}
         <div>
-          {/* Header with Photo on the left + Name & Badge below name */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
-            {/* Clickable Profile Photo with Square Frame */}
-            <motion.button
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ type: "spring", damping: 20, stiffness: 260 }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              className="group relative shrink-0 cursor-pointer focus:outline-none rounded-2xl sm:rounded-3xl text-left"
-              title="Cliquer pour agrandir la photo"
-            >
-              <div className="relative w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-surface-2 border border-border/80">
-                {/* Light Mode: White background */}
-                <img
-                  src="/images/portrait-light.jpg"
-                  alt={m.hero.name}
-                  className="w-full h-full object-cover object-top block dark:hidden transition-all duration-300 group-hover:scale-108 group-hover:brightness-105"
-                />
-                {/* Dark Mode: Black background */}
-                <img
-                  src="/images/portrait-dark.jpg"
-                  alt={m.hero.name}
-                  className="w-full h-full object-cover object-top hidden dark:block transition-all duration-300 group-hover:scale-108 group-hover:brightness-105"
-                />
-                {/* Zoom overlay on hover */}
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[1px]">
-                  <ZoomIn className="h-7 w-7 text-white drop-shadow-md" />
-                </div>
-              </div>
-            </motion.button>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 font-mono text-xs text-emerald-600 dark:text-emerald-400 sm:text-sm font-semibold shadow-sm">
+              <Shield className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />
+              <span>{m.hero.badge}</span>
+            </span>
+          </motion.div>
 
-            {/* Name + Badge */}
-            <div className="flex-1 min-w-0">
-              <motion.h1
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="bg-gradient-to-b from-foreground via-foreground to-muted bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl lg:text-6xl"
-              >
-                {m.hero.name}
-              </motion.h1>
-
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.08 }}
-                className="mt-2.5"
-              >
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 font-mono text-xs text-emerald-600 dark:text-emerald-400 sm:text-sm font-semibold shadow-sm">
-                  <Shield className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />
-                  <span>{m.hero.badge}</span>
-                </span>
-              </motion.div>
-            </div>
-          </div>
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="mt-6 bg-gradient-to-b from-foreground via-foreground to-muted bg-clip-text pb-1 text-6xl font-extrabold leading-[0.95] tracking-tight text-transparent sm:text-7xl lg:text-8xl"
+          >
+            <span className="block">{firstName}</span>
+            <span className="block">{lastName.join(" ").toUpperCase()}</span>
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-5 font-mono text-base text-primary sm:text-lg font-semibold"
+            className="mt-6 font-mono text-base text-primary sm:text-lg font-semibold"
           >
-            {m.hero.subtitle}
+            {m.hero.tagline}
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.13 }}
-            className="mt-2.5 inline-flex items-center gap-2 rounded-lg border border-border/60 bg-surface-2 px-3 py-1 font-mono text-xs text-slate-700 dark:text-slate-300 font-medium backdrop-blur-sm"
-          >
-            <CalendarDays className="h-3.5 w-3.5 text-primary" />
-            <span>{m.hero.rhythm}</span>
-          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-5 max-w-xl text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300 font-normal"
+            className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-700 dark:text-slate-300 font-normal"
           >
-            {m.hero.intro}
+            {m.hero.introShort}
           </motion.p>
 
           <motion.div
@@ -167,23 +147,68 @@ export function Hero() {
               <Download className="h-4 w-4" />
             </motion.a>
           </motion.div>
+
+          {/* Apprenticeship key facts */}
+          <motion.dl
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="mt-10 grid grid-cols-1 gap-5 border-t border-border/70 pt-6 sm:grid-cols-3"
+          >
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">
+                  {fact.label}
+                </dt>
+                <dd className="mt-1.5 text-sm font-semibold text-foreground sm:text-base">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
         </div>
 
-        {/* Right: SOC control-center visual */}
+        {/* Right: log panel + portrait, with the terminal overlapping below */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative"
         >
-          <HeroVisual />
+          <div className="relative ml-auto h-[360px] w-full overflow-hidden rounded-3xl border border-border/80 bg-surface/80 shadow-card dark:bg-[#090d16]/90 sm:h-[420px] sm:w-[88%] lg:h-[460px]">
+            {/* Scrolling log feed */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 overflow-hidden px-6 pt-6 font-mono text-[0.68rem] leading-[2.1] text-muted/25 [mask-image:linear-gradient(to_bottom,#000_55%,transparent)] sm:text-xs"
+            >
+              <div className="animate-log-scroll">
+                {[...LOG_LINES, ...LOG_LINES].map((line, i) => (
+                  <p key={i} className="whitespace-nowrap">
+                    {line}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            {/* Glow behind the portrait */}
+            <div className="pointer-events-none absolute bottom-16 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/25 blur-[90px]" />
+
+            {/* Portrait cut-out */}
+            <div className="absolute -bottom-6 left-[54%] w-[100%] -translate-x-1/2 sm:w-[96%]">
+              <img
+                src="/images/portrait-cutout.webp"
+                alt={m.hero.name}
+                className="block h-auto w-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]"
+              />
+            </div>
+          </div>
+
+          {/* Interactive terminal (compact) overlapping the panel */}
+          <div className="relative z-10 ml-auto -mt-14 w-full sm:-mt-16 sm:w-[88%]">
+            <HeroVisual compact />
+          </div>
         </motion.div>
       </div>
-
-      {/* Centered Modal on Click */}
-      <ProfileModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </section>
   );
 }

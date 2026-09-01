@@ -34,7 +34,15 @@
     "live": "En direct",
     "secured": "Système sécurisé",
     "threatLevel": "Niveau de menace",
-    "nominal": "Nominal"
+    "nominal": "Nominal",
+    "tagline": "Cybersécurité · Blue team · DevSecOps",
+    "introShort": "Après 3 ans sur le terrain en systèmes et réseaux, j'allie la technique (DevSecOps, IAM) à la stratégie (GRC) pour aider les équipes à bâtir des environnements résilients, conformes et sécurisés sur le long terme.",
+    "durationLabel": "Durée",
+    "durationValue": "12 mois · dès sept. 2026",
+    "rhythmLabel": "Rythme",
+    "rhythmValue": "2 sem. entreprise / 1 sem. école",
+    "locationLabel": "Lieu",
+    "locationValue": "Paris · Île-de-France"
   },
   "stats": {
     "projects": "Projets",
