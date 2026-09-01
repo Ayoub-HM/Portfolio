@@ -72,13 +72,26 @@ export function Navbar() {
     }
   };
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setOpen(false);
     if (href.startsWith("#")) {
+      e.preventDefault(); // Stop the browser's instant jump
       const sectionId = href.slice(1);
+      
+      // 1. Open the target section
       window.dispatchEvent(
         new CustomEvent("open-section", { detail: sectionId })
       );
+      
+      // 2. Scroll to it smoothly after a tiny delay so the DOM has started expanding
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          // Update the URL hash without jumping
+          window.history.pushState(null, "", href);
+        }
+      }, 150); // 150ms allows Framer Motion to start the height animation
     }
   };
 
@@ -179,7 +192,7 @@ export function Navbar() {
                 <li key={link.key} className="relative py-1">
                   <a
                     href={link.href}
-                    onClick={() => handleNavClick(link.href)}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`inline-block font-mono text-sm font-semibold transition-colors duration-200 hover:text-foreground ${
                       isActive ? "text-foreground" : "text-muted"
                     }`}
@@ -238,7 +251,7 @@ export function Navbar() {
                 <li key={link.key}>
                   <a
                     href={link.href}
-                    onClick={() => handleNavClick(link.href)}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className="block py-3 font-mono text-sm text-muted transition-colors hover:text-foreground"
                   >
                     {m.nav[link.key]}
