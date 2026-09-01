@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     });
 
     const mailOptions = {
-      from: `"${name}" <${email}>`, // It will actually send from emailUser but replyTo handles replies
+      from: `"Portfolio Contact" <${emailUser}>`, // Must send from authenticated user to prevent silent drops
       to: "ayoubhammou77@gmail.com", // Send directly to the user's box
       replyTo: email,
       subject: `Nouveau message de contact : ${name}`,
