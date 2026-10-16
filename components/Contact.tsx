@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
 import {
   AlertCircle,
   Check,
@@ -219,7 +218,7 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Right: Contact Form with EmailJS */}
+          {/* Right: Contact Form (sent via /api/contact) */}
           <div>
             <form
             ref={formRef}

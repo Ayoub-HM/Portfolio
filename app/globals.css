@@ -75,15 +75,6 @@
     @apply rounded-2xl border border-border bg-surface/70 backdrop-blur-sm;
   }
 
-  .section-padding {
-    @apply mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-10 lg:py-12;
-  }
-
-  /* Subtle glowing text for accents */
-  .text-glow {
-    text-shadow: 0 0 24px rgb(var(--primary) / 0.35);
-  }
-
   /* Animated background grid */
   .cyber-grid {
     background-image: linear-gradient(
@@ -93,25 +84,7 @@
       linear-gradient(90deg, rgb(var(--border) / 0.35) 1px, transparent 1px);
     background-size: 48px 48px;
   }
-
-  /* Rotating radar beam used in the hero visual */
-  .radar-sweep {
-    background: conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      rgb(var(--primary) / 0.28) 40deg,
-      transparent 65deg
-    );
-    animation: radar-spin 6s linear infinite;
-  }
 }
-
-@keyframes radar-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {

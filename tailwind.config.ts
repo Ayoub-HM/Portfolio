@@ -39,30 +39,9 @@ const config: Config = {
       },
       boxShadow: {
         glow: "0 0 40px -8px rgb(var(--primary) / 0.45)",
-        "glow-accent": "0 0 40px -8px rgb(var(--accent) / 0.45)",
         card: "0 20px 50px -24px rgb(0 0 0 / 0.6)",
       },
-      backgroundImage: {
-        "grid-lines":
-          "linear-gradient(rgb(var(--border) / 0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--border) / 0.5) 1px, transparent 1px)",
-      },
       keyframes: {
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(16px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        scan: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(400%)" },
-        },
-        "pulse-ring": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.3" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-6px)" },
-        },
         // Log list is rendered twice; scrolling by half loops seamlessly.
         "log-scroll": {
           "0%": { transform: "translateY(0)" },
@@ -70,10 +49,6 @@ const config: Config = {
         },
       },
       animation: {
-        "fade-up": "fade-up 0.6s ease forwards",
-        scan: "scan 3.5s linear infinite",
-        "pulse-ring": "pulse-ring 2.4s ease-in-out infinite",
-        float: "float 5s ease-in-out infinite",
         "log-scroll": "log-scroll 45s linear infinite",
       },
     },

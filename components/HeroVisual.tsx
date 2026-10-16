@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Terminal, Send, ShieldCheck, CheckCircle2, Sparkles, X, Maximize2, Minimize2 } from "lucide-react";
+import { Terminal, Send, CheckCircle2, Sparkles } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
 

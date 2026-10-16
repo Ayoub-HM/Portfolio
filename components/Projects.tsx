@@ -12,12 +12,9 @@ import {
   Github,
   KeyRound,
   Lock,
-  Radio,
   Shield,
   ShieldAlert,
-  Sparkles,
   Target,
-  Terminal,
   Workflow,
   CheckCircle2,
 } from "lucide-react";

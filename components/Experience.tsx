@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Briefcase, ChevronDown, GraduationCap, MapPin, Layers } from "lucide-react";
+import { Briefcase, ChevronDown, GraduationCap, MapPin } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { experiences } from "@/data/experience";
 import { education } from "@/data/education";
-import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
 import { CollapsibleSection } from "./ui/CollapsibleSection";
 import { orgLogoMap } from "./icons/OrgLogos";

@@ -23,18 +23,9 @@
   "hero": {
     "badge": "M2 cybersécurité & IA - EFREI",
     "name": "Ayoub HAMMOU",
-    "subtitle": "Recherche d'une alternance de 12 mois à partir de septembre 2026",
-    "rhythm": "Rythme : 2 semaines entreprise / 1 semaine école",
     "intro": "Parce que votre infrastructure est au cœur de votre activité, ma mission est de vous aider à la protéger au quotidien. Après 3 années passées sur le terrain en systèmes et réseaux, j'ai développé une approche qui allie la technique (DevSecOps, IAM) à la stratégie (GRC). Aujourd'hui en Master Cybersécurité & IA à l’EFREI, je ne m'arrête pas à la simple recherche de failles : j'accompagne les équipes pour construire ensemble des environnements résilients, conformes et sécurisés sur le long terme.",
     "viewProjects": "Découvrir mes projets",
     "downloadCV": "Télécharger mon CV",
-    "scroll": "Défiler",
-    "consoleTitle": "ayoub@soc: ~",
-    "monitoring": "Supervision SOC",
-    "live": "En direct",
-    "secured": "Système sécurisé",
-    "threatLevel": "Niveau de menace",
-    "nominal": "Nominal",
     "tagline": "Cybersécurité · Blue team · DevSecOps",
     "introShort": "Après 3 ans sur le terrain en systèmes et réseaux, j'allie la technique (DevSecOps, IAM) à la stratégie (GRC) pour aider les équipes à bâtir des environnements résilients, conformes et sécurisés sur le long terme.",
     "durationLabel": "Durée",
@@ -44,70 +35,21 @@
     "locationLabel": "Lieu",
     "locationValue": "Paris · Île-de-France"
   },
-  "stats": {
-    "projects": "Projets",
-    "labHours": "Heures de lab",
-    "tools": "Outils & Technologies",
-    "certifications": "Certifications"
-  },
   "about": {
-    "kicker": "Profil",
-    "title": "À propos de moi",
-    "p1": "Parce que votre infrastructure est au cœur de votre activité, ma mission est de vous aider à la protéger au quotidien. Après 3 années passées sur le terrain en systèmes et réseaux, j'ai développé une approche qui allie la technique (DevSecOps, IAM) à la stratégie (GRC).",
-    "p2": "Aujourd'hui en Master Cybersécurité & IA à l’EFREI, je ne m'arrête pas à la simple recherche de failles : j'accompagne les équipes pour construire ensemble des environnements résilients, conformes et sécurisés sur le long terme.",
-    "points": [
-      "Esprit analytique",
-      "Créateur de labs pratiques",
-      "Curieux et rigoureux",
-      "Engagé dans l'apprentissage continu"
-    ],
-    "identityTitle": "Identité cyber",
     "available": "Disponible — alternance",
-    "availableDetail": "Septembre 2026 · Paris (Île-de-France)",
-    "languagesTitle": "Langues",
-    "languages": [
-      { "label": "Arabe", "level": "Natif" },
-      { "label": "Français", "level": "C1" },
-      { "label": "Anglais", "level": "B2" }
-    ]
-  },
-  "dashboard": {
-    "title": "Vue d'ensemble système",
-    "subtitle": "Tableau de bord illustratif d'un centre d'opérations de sécurité (SOC).",
-    "users": "Utilisateurs",
-    "alerts": "Alertes",
-    "assets": "Actifs",
-    "vsLastMonth": "vs mois dernier",
-    "topThreats": "Principales catégories de menaces",
-    "securityPosture": "Posture de sécurité",
-    "postureLabel": "Bon",
-    "threats": {
-      "initialAccess": "Accès initial",
-      "privEsc": "Élévation de privilèges",
-      "credAccess": "Accès aux identifiants",
-      "lateral": "Mouvement latéral",
-      "other": "Autre"
-    },
-    "disclaimer": "Élément de design — données illustratives, non opérationnelles."
+    "availableDetail": "Septembre 2026 · Paris (Île-de-France)"
   },
   "projects": {
-    "kicker": "Travaux",
     "title": "Projets",
-    "subtitle": "Une sélection de projets académiques et professionnels, du pentest à la gouvernance en passant par le Cloud et le DevSecOps.",
     "viewProject": "Voir le code sur GitHub",
     "caseStudy": "Demander le rapport / étude de cas",
-    "comingSoon": "Bientôt disponible",
-    "viewAll": "Voir tous les dépôts GitHub",
     "filterAll": "Tous",
     "objective": "Objectif du projet",
     "implementation": "Implémentation & Étapes clés",
-    "results": "Résultats & Livrables",
-    "stack": "Stack Technique"
+    "results": "Résultats & Livrables"
   },
   "skills": {
-    "kicker": "Stack",
     "title": "Compétences techniques",
-    "subtitle": "Outils et technologies que je mobilise sur mes projets et en environnement de production.",
     "proficiencyTitle": "Niveau par domaine",
     "technologiesTitle": "Technologies",
     "categories": {
@@ -121,36 +63,21 @@
     }
   },
   "certifications": {
-    "kicker": "Crédibilité",
     "title": "Certifications",
-    "subtitle": "Certifications obtenues et en cours de préparation.",
     "obtained": "Obtenue",
     "inProgress": "En préparation"
   },
   "experience": {
-    "kicker": "Parcours",
     "title": "Parcours & Expériences",
-    "subtitle": "De la supervision bancaire critique et de l'ingénierie réseaux à la cybersécurité & IA.",
     "current": "Actuel",
     "filterAll": "Tout",
     "filterExp": "Expériences pro",
     "filterEdu": "Formations",
     "badgeExp": "Expérience pro",
-    "badgeEdu": "Formation",
-    "responsibilitiesTitle": "Responsabilités",
-    "focusTitle": "Spécialisation & Réalisations",
-    "technologiesTitle": "Technologies"
-  },
-  "education": {
-    "kicker": "Formation",
-    "title": "Parcours académique",
-    "subtitle": "Un cursus progressif vers la cybersécurité et l'intelligence artificielle.",
-    "focusTitle": "Spécialisation"
+    "badgeEdu": "Formation"
   },
   "contact": {
-    "kicker": "Contact",
     "title": "Travaillons ensemble",
-    "subtitle": "Ouvert aux opportunités d'alternance et de collaboration.",
     "intro": "Disponible en alternance dès septembre 2026 en cybersécurité. Basé à Paris (Île-de-France).",
     "emailLabel": "Email",
     "phoneLabel": "Téléphone",
@@ -170,16 +97,12 @@
     }
   },
   "interests": {
-    "kicker": "Divers & Profil",
     "title": "Divers & Centres d'intérêt",
-    "subtitle": "Langues parlées, passions personnelles et ouverture d'esprit.",
     "languagesTitle": "Langues & Communication",
     "interestsTitle": "Centres d'intérêt & Passions",
     "badgeCount": "3 langues · 4 passions"
   },
   "footer": {
-    "rights": "© 2026 Ayoub HAMMOU. Tous droits réservés.",
-    "tagline": "Cybersécurité · IAM · SOC · GRC · DevSecOps",
-    "status": "Disponible pour alternance"
+    "rights": "© 2026 Ayoub HAMMOU. Tous droits réservés."
   }
 }
